@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/00_Scenes/Alexander's.unity
-  isLoaded: 1
-  isActive: 1
