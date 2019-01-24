@@ -2,30 +2,9 @@
 {
     using UnityEngine;
 
-    public class RH_Listener : MonoBehaviour
+    public class LH_Listener : MonoBehaviour
     {
-        public GameObject rightHand;
-        public bool wheel_trigger = false;
-
-        public void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log("rh triggered");
-            if (wheel_trigger)
-             {
-            Debug.Log("entered");
-             }
-        }
-
-    public enum EventQuickSelect
+        public enum EventQuickSelect
         {
             Custom,
             None,
@@ -126,7 +105,6 @@
             controllerEvents.RingFingerSenseAxisChanged += DoRingFingerSenseAxisChanged;
             controllerEvents.PinkyFingerSenseAxisChanged += DoPinkyFingerSenseAxisChanged;
         }
-
 
         private void OnDisable()
         {
@@ -288,22 +266,19 @@
 
         private void DebugLogger(uint index, string button, string action, ControllerInteractionEventArgs e)
         {
-            //            string debugString = "Controller on index '" + index + "' " + button + " has been " + action
-            //                                 + " with a pressure of " + e.buttonPressure + " / Primary Touchpad axis at: " + e.touchpadAxis + " (" + e.touchpadAngle + " degrees)" + " / Secondary Touchpad axis at: " + e.touchpadTwoAxis + " (" + e.touchpadTwoAngle + " degrees)";
-            //            VRTK_Logger.Info(debugString);
+           // string debugString = "Controller on index '" + index + "' " + button + " has been " + action
+           //                      + " with a pressure of " + e.buttonPressure + " / Primary Touchpad axis at: " + e.touchpadAxis + " (" + e.touchpadAngle + " degrees)" + " / Secondary Touchpad axis at: " + e.touchpadTwoAxis + " (" + e.touchpadTwoAngle + " degrees)";
+           // VRTK_Logger.Info(debugString);
         }
 
         private void DoTriggerPressed(object sender, ControllerInteractionEventArgs e)
         {
-            
-
             if (triggerButtonEvents)
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
 
-            Debug.Log("\nLocation of right hand = ");
-            Debug.Log(rightHand.transform.position);
+            transform.root.GetComponent<PlayerScript>().TriggerTriggered(0, true);
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -312,6 +287,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
+            transform.root.GetComponent<PlayerScript>().TriggerTriggered(0, false);
         }
 
         private void DoTriggerTouchStart(object sender, ControllerInteractionEventArgs e)

@@ -298,6 +298,18 @@ MonoBehaviour:
   middleFingerSenseAxisEvents: 1
   ringFingerSenseAxisEvents: 1
   pinkyFingerSenseAxisEvents: 1
+--- !u!135 &379245833
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 379245830}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &460103287
 Prefab:
   m_ObjectHideFlags: 0
@@ -335,6 +347,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4726844815573086, guid: afec65f27dcd2c74cba31fc61eea61e6, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469220889570388, guid: afec65f27dcd2c74cba31fc61eea61e6, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -411,6 +427,7 @@ GameObject:
   - component: {fileID: 1317531569}
   - component: {fileID: 1317531568}
   - component: {fileID: 1317531571}
+  - component: {fileID: 1317531572}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -501,6 +518,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1317531572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317531566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7767161e88d3664e8d412ebaca8d9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1375446527
 Prefab:
   m_ObjectHideFlags: 0
@@ -538,6 +566,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4726844815573086, guid: afec65f27dcd2c74cba31fc61eea61e6, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1469220889570388, guid: afec65f27dcd2c74cba31fc61eea61e6, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -587,6 +619,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1010005081461398, guid: 056c235fda65af544b5de964f5949f07, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056c235fda65af544b5de964f5949f07, type: 2}
   m_IsPrefabAsset: 0
@@ -607,6 +643,7 @@ GameObject:
   - component: {fileID: 1692846194}
   - component: {fileID: 1692846193}
   - component: {fileID: 1692846196}
+  - component: {fileID: 1692846197}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -697,6 +734,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1692846197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1692846191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20fff1004f28a0642b23e76cf7a9a012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1957162443 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1423089725027748, guid: 056c235fda65af544b5de964f5949f07,
@@ -713,8 +761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067221f21bb8007468dbfe9804fc383a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHand: {fileID: 1184386195}
-  wheel_trigger: 0
   quickSelect: 2
   triggerButtonEvents: 1
   gripButtonEvents: 1
@@ -736,6 +782,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4162786282447916, guid: 056c235fda65af544b5de964f5949f07,
     type: 2}
   m_PrefabInternal: {fileID: 1451844943}
+--- !u!135 &1957162447
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1957162443}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2000375111
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +805,6 @@ GameObject:
   - component: {fileID: 2000375116}
   - component: {fileID: 2000375115}
   - component: {fileID: 2000375114}
-  - component: {fileID: 2000375112}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -755,17 +812,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2000375112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2000375111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b99878995464584d94e8b5f202ec3f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2000375114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -827,8 +873,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2000375111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7406547, y: 0.30078948, z: 0.94705045}
-  m_LocalScale: {x: 1, y: 0.23547, z: 0.1419}
+  m_LocalPosition: {x: -0.11944, y: -0.30734, z: 0.94024}
+  m_LocalScale: {x: 0.52, y: 0.12244439, z: 0.073788}
   m_Children:
   - {fileID: 1692846192}
   - {fileID: 1317531567}
