@@ -276,7 +276,6 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, true);
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -286,7 +285,6 @@ namespace VRTK.Examples
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
 
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, false);
 
         }
 
@@ -360,6 +358,8 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
             }
+            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, true);
+
         }
 
         private void DoGripReleased(object sender, ControllerInteractionEventArgs e)
@@ -368,6 +368,8 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "released", e);
             }
+            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, false);
+
         }
 
         private void DoGripTouchStart(object sender, ControllerInteractionEventArgs e)
