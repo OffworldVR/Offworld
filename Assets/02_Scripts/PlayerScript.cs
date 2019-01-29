@@ -17,15 +17,24 @@ public class PlayerScript : MonoBehaviour {
     private Vector3 NewGrabPosition;
     private Vector3 wheelStartPos;
 
+    public GameObject shipToMove;
+    public shipMovement shipScript;
 
 
-	void Start () {
+    private Vector3 saveGrabPos;
+
+    void Start () {
+
+        //Set original wheel Position
         wheelStartPos = wheel.localPosition;
-	}
 
-	void Update () {
+        //Get ship script
+        shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
 
+    }
 
+    void Update () {
+ 
 
         if (canSteer)
         {
@@ -43,19 +52,39 @@ public class PlayerScript : MonoBehaviour {
 
         //wheel.localPosition = wheelStartPos + new Vector3(0,0, -distanceBetween);
         wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, rightHandTransform.localPosition.z);
-       // Debug.Log(distanceBetween);
+        // Debug.Log(distanceBetween);
+
+        //Call script to move ship forward
+        shipScript.shipForward(wheelStartPos.z-rightHandTransform.localPosition.z);
+
+
 
     }
     public void UpdateRoll()
     {
-        Vector3 vector1 = OriginalGrabPosition - wheel.localPosition;
-        Vector3 vector2 = NewGrabPosition - wheel.localPosition;
 
-        float degreeBetween= Vector3.Angle(vector1, vector2);
+        //Calculate angle between 4 points
+        Vector3 vector1 = OriginalGrabPosition - wheel.position;
+        Vector3 vector2 = NewGrabPosition - wheel.position;
+
+
+        saveGrabPos = rightHandTransform.position;
+
+
+
+        float degreeBetween = Vector3.Angle(vector1, vector2);
+
+        //Calculate cross product to determine polarity of angle
         Vector3 cross = Vector3.Cross(vector1, vector2);
-        if (cross.y < 0) degreeBetween = -degreeBetween;
+        if (cross.z < 0) degreeBetween = -degreeBetween;
 
+
+
+        //Rotate physical wheel
         wheel.eulerAngles = new Vector3(0, 0, degreeBetween);
+
+
+     
     }
     public void UpdateWheel()
     {
