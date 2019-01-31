@@ -15,86 +15,70 @@ public class PlayerScript : MonoBehaviour {
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
-    private Vector3 wheelStartPos;
-		private Rigidbody rb;
-		private float wheelRotation;
-		private float wheelDistance;
+    private Vector3 wheelStartPosition;
+	private Rigidbody rb;
+	private float wheelRotation;
+	private float wheelDistance;
 
     // public GameObject shipToMove;
-    // public shipMovement shipScript;
+    public shipMovement shipScript;
 
 
     private Vector3 saveGrabPos;
 
     void Start () {
         //Set original wheel Position
-        wheelStartPos = wheel.position;
-				rb = GetComponent<Rigidbody>();
+        wheelStartPosition = wheel.localPosition;
+		rb = GetComponent<Rigidbody>();
         //Get ship script
-        // shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
+        shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
     }
 
     void Update () {
         if (canSteer)
         {
             NewGrabPosition = rightHandTransform.position;
-            UpdateWheel();
+
             UpdatePitch();
             UpdateRoll();
-						Move();
-						//TODO REMOVE THIS
-						// rb.AddForce(transform.forward);
+					
         }
 	}
 
-	public void Move(){
-		// transform.eulerAngles = ;
-	}
     public void UpdatePitch()
     {
-        //float distanceBetween = OriginalGrabPosition.z - NewGrabPosition.z;
+        //Move wheel z position to hand z position
+        wheelDistance = Mathf.Clamp(rightHandTransform.localPosition.z, 0, 0.6f);
+        wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, wheelDistance);
 
-        //wheel.localPosition = wheelStartPos + new Vector3(0,0, -distanceBetween);
-        wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, rightHandTransform.localPosition.z);
-				wheelDistance = rightHandTransform.localPosition.z;
-        // Debug.Log(distanceBetween);
-
-        //Call script to move ship forward
-        // shipScript.shipForward(wheelStartPos.z-rightHandTransform.localPosition.z);
-
-
+       
+        shipScript.shipPitch(wheelStartPosition.z - wheelDistance);
 
     }
     public void UpdateRoll()
     {
 
-        //Calculate angle between 4 points
-        // Vector3 vector1 = new Vector3(OriginalGrabPosition.x, OriginalGrabPosition.y, 0) - new Vector3(wheelStartPos.x, wheelStartPos.y, 0);
-				Vector3 vector1 = new Vector3(1, 0, 0);
+        //Calculate angle between a x-axis constant vector and the vector from the center of the steering wheel to the current hand position
+		Vector3 vector1 = new Vector3(1, 0, 0);
         Vector3 vector2 = new Vector3(NewGrabPosition.x, NewGrabPosition.y, 0) - new Vector3(wheel.position.x, wheel.position.y, 0);
 
-        // saveGrabPos = rightHandTransform.position;
-
-
-
+        //Calculate difference between the two vectors
         float degreeBetween = Vector3.Angle(vector1, vector2);
 
         //Calculate cross product to determine polarity of angle
         Vector3 cross = Vector3.Cross(vector1, vector2);
         if (cross.z < 0) degreeBetween = -degreeBetween;
-				wheelRotation = degreeBetween;
 
-        //Rotate physical wheel
+        //wheelRotation = degreeBetween;
+
+        //Rotate wheel GameObject
         wheel.eulerAngles = new Vector3(0, 0, degreeBetween);
 
-
-
-    }
-    public void UpdateWheel()
-    {
+        //RollShip 
+        shipScript.shipRoll(degreeBetween);
 
     }
-
+  
 	public void HandleTriggered(int handleNum, bool isTriggered){
 		if(handleNum==0){
 						leftHandleIsTriggered = isTriggered;
@@ -119,7 +103,7 @@ public class PlayerScript : MonoBehaviour {
         //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
     if (!canSteer){
         OriginalGrabPosition = rightHandTransform.position;
-				wheelStartPos = wheel.position;
+				wheelStartPosition = wheel.position;
     }
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
             //wheelStartPos =

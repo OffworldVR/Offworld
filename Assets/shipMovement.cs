@@ -6,31 +6,64 @@ using UnityEngine;
 public class shipMovement : MonoBehaviour {
 
     public Rigidbody rb;
-    // Use this for initialization
+
+
+
+
+    public int forwardOrBack = 0;
+
     void Start () {
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update () {
-		
+        shipAccelerate();
 	}
 
-    //Recieves float of wheel start Position - local hand position Z-AXIS and moves ship forward accordingly
-    public void shipForward(float handPosition)
+    //Passed a positive int for forward, 0 for stop, -1 for reverse
+    public void shipAccelerate()
     {
-        //float xVelocity = handPosition*Mathf.Pow(9.845f,handPosition);
-        float thrust = -0.05f;
-        //-0.3 to 0.3
-        rb.AddForce(transform.right * thrust);
+        float thrust = 0.5f;
+
+        Vector3 force = new Vector3(0, 0, 0);
+
+        if(forwardOrBack == 1)
+        {
+            force = transform.forward * thrust;
+        }
+        else if(forwardOrBack == -1)
+        {
+
+            force = -transform.forward * thrust;
+
+        }
+
+        //Add Force
+        rb.AddForce(force);
        
-      
-
-        //rotate up or down 
-
-        transform.eulerAngles = new Vector3(0, 0, 200 * handPosition);
 
     }
 
+    //Passed value of wheel rotation
+    public void shipRoll(float rotateValue)
+    {
+        //transform.eulerAngles = new Vector3(0, 0, 200 * handPosition);
+
+
+        //transform.eulerAngles = new Vector3(0, 0, rotateValue);
+        transform.RotateAround(transform.position, transform.forward, rotateValue * Time.deltaTime);
+
+    }
+
+    //Recieves float of wheel start Position - local hand position Z-AXIS and moves ship forward accordingly
+    public void shipPitch(float deltaDistance)
+    {
+        Debug.Log(deltaDistance);
+
+        deltaDistance = deltaDistance * -100f;
+        transform.RotateAround(transform.position, transform.right, deltaDistance * Time.deltaTime);
+
+    }
 
 }
