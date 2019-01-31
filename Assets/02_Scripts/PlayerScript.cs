@@ -22,8 +22,6 @@ public class PlayerScript : MonoBehaviour {
 
     // public GameObject shipToMove;
     // public shipMovement shipScript;
-
-
     private Vector3 saveGrabPos;
 
     void Start () {
@@ -38,7 +36,6 @@ public class PlayerScript : MonoBehaviour {
         if (canSteer)
         {
             NewGrabPosition = rightHandTransform.position;
-            UpdateWheel();
             UpdatePitch();
             UpdateRoll();
 						Move();
@@ -48,52 +45,45 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	public void Move(){
-		// transform.eulerAngles = ;
+		transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime);
+		// transform.RotateAround(transform.position, transform.right, wheelDistance*100*Time.deltaTime);
 	}
-    public void UpdatePitch()
-    {
-        //float distanceBetween = OriginalGrabPosition.z - NewGrabPosition.z;
 
-        //wheel.localPosition = wheelStartPos + new Vector3(0,0, -distanceBetween);
-        wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, rightHandTransform.localPosition.z);
-				wheelDistance = rightHandTransform.localPosition.z;
-        // Debug.Log(distanceBetween);
+  public void UpdatePitch()
+  {
+      //float distanceBetween = OriginalGrabPosition.z - NewGrabPosition.z;
 
-        //Call script to move ship forward
-        // shipScript.shipForward(wheelStartPos.z-rightHandTransform.localPosition.z);
+      //wheel.localPosition = wheelStartPos + new Vector3(0,0, -distanceBetween);
+      wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f, 0.3f));
+			wheelDistance = wheel.localPosition.z;
+      // Debug.Log(distanceBetween);
 
-
-
-    }
-    public void UpdateRoll()
-    {
-
-        //Calculate angle between 4 points
-        // Vector3 vector1 = new Vector3(OriginalGrabPosition.x, OriginalGrabPosition.y, 0) - new Vector3(wheelStartPos.x, wheelStartPos.y, 0);
-				Vector3 vector1 = new Vector3(1, 0, 0);
-        Vector3 vector2 = new Vector3(NewGrabPosition.x, NewGrabPosition.y, 0) - new Vector3(wheel.position.x, wheel.position.y, 0);
-
-        // saveGrabPos = rightHandTransform.position;
+      //Call script to move ship forward
+      // shipScript.shipForward(wheelStartPos.z-rightHandTransform.localPosition.z);
 
 
 
-        float degreeBetween = Vector3.Angle(vector1, vector2);
+  }
 
-        //Calculate cross product to determine polarity of angle
-        Vector3 cross = Vector3.Cross(vector1, vector2);
-        if (cross.z < 0) degreeBetween = -degreeBetween;
-				wheelRotation = degreeBetween;
+  public void UpdateRoll()
+  {
+      //Calculate angle between 4 points
+      // Vector3 vector1 = new Vector3(OriginalGrabPosition.x, OriginalGrabPosition.y, 0) - new Vector3(wheelStartPos.x, wheelStartPos.y, 0);
+			Vector3 vector1 = transform.right;
+      Vector3 vector2 = new Vector3(NewGrabPosition.x, NewGrabPosition.y, 0) - new Vector3(wheel.position.x, wheel.position.y, 0);
 
-        //Rotate physical wheel
-        wheel.eulerAngles = new Vector3(0, 0, degreeBetween);
+      // saveGrabPos = rightHandTransform.position;
 
+      float degreeBetween = Vector3.Angle(vector1, vector2);
 
+      //Calculate cross product to determine polarity of angle
+      Vector3 cross = Vector3.Cross(vector1, vector2);
+      if (cross.z < 0) degreeBetween = -degreeBetween;
+			wheelRotation = degreeBetween;
 
-    }
-    public void UpdateWheel()
-    {
-
-    }
+      //Rotate physical wheel
+      wheel.eulerAngles = new Vector3(0, 0, degreeBetween) + transform.eulerAngles;
+  }
 
 	public void HandleTriggered(int handleNum, bool isTriggered){
 		if(handleNum==0){
@@ -104,6 +94,7 @@ public class PlayerScript : MonoBehaviour {
     }
     CheckSteering();
 	}
+
 	public void TriggerTriggered(int handNum, bool isTriggered){
     //Run if left hand grip is grabbed or released
     if (handNum == 0){
@@ -118,8 +109,8 @@ public class PlayerScript : MonoBehaviour {
 	public void CheckSteering(){
         //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
     if (!canSteer){
-        OriginalGrabPosition = rightHandTransform.position;
-				wheelStartPos = wheel.position;
+        OriginalGrabPosition = rightHandTransform.localPosition;
+				wheelStartPos = wheel.localPosition;
     }
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
             //wheelStartPos =
