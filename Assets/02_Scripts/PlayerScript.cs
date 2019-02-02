@@ -13,23 +13,31 @@ public class PlayerScript : MonoBehaviour {
     public Transform leftHandTransform;
     public Transform wheel;
 
+    private Vector3 saveGrabPos;
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
     private Vector3 wheelStartPosition;
+
 	private Rigidbody rb;
+
 	private float wheelRotation;
 	private float wheelDistance;
 
-    // public GameObject shipToMove;
     public shipMovement shipScript;
 
+    //Determines for of acceleration
+    float thrust = 0.5f;
 
-    private Vector3 saveGrabPos;
+    //Changed by LH_Listener to 0 if force is positive or 1 if negative 
+    public int forwardOrBack = 0;
+
 
     void Start () {
+        rb = GetComponent<Rigidbody>();
+
         //Set original wheel Position
         wheelStartPosition = wheel.localPosition;
-		rb = GetComponent<Rigidbody>();
+
         //Get ship script
         shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
     }
@@ -41,9 +49,11 @@ public class PlayerScript : MonoBehaviour {
 
             UpdatePitch();
             UpdateRoll();
-					
+            Accelerate();
+
+
         }
-	}
+    }
 
     public void UpdatePitch()
     {
@@ -51,15 +61,16 @@ public class PlayerScript : MonoBehaviour {
         wheelDistance = Mathf.Clamp(rightHandTransform.localPosition.z, 0, 0.6f);
         wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, wheelDistance);
 
-       
-        shipScript.shipPitch(wheelStartPosition.z - wheelDistance);
+        float deltaDistance = wheelStartPosition.z - wheelDistance;
+        deltaDistance = deltaDistance * -100f;
+        transform.RotateAround(transform.position, transform.right, deltaDistance * Time.deltaTime);
 
     }
     public void UpdateRoll()
     {
 
         //Calculate angle between a x-axis constant vector and the vector from the center of the steering wheel to the current hand position
-		Vector3 vector1 = new Vector3(1, 0, 0);
+		Vector3 vector1 = transform.right;
         Vector3 vector2 = new Vector3(NewGrabPosition.x, NewGrabPosition.y, 0) - new Vector3(wheel.position.x, wheel.position.y, 0);
 
         //Calculate difference between the two vectors
@@ -69,24 +80,23 @@ public class PlayerScript : MonoBehaviour {
         Vector3 cross = Vector3.Cross(vector1, vector2);
         if (cross.z < 0) degreeBetween = -degreeBetween;
 
-        //wheelRotation = degreeBetween;
-
         //Rotate wheel GameObject
         wheel.eulerAngles = new Vector3(0, 0, degreeBetween);
 
         //RollShip 
-        shipScript.shipRoll(degreeBetween);
+        transform.RotateAround(transform.position, transform.forward, degreeBetween * Time.deltaTime);
 
     }
   
 	public void HandleTriggered(int handleNum, bool isTriggered){
 		if(handleNum==0){
 						leftHandleIsTriggered = isTriggered;
-		}else{
+		}
+        else {
 				rightHandleIsTriggered = isTriggered;
-        //Set Position where wheel is grabbed
-    }
-    CheckSteering();
+            //Set Position where wheel is grabbed
+        }
+        CheckSteering();
 	}
 	public void TriggerTriggered(int handNum, bool isTriggered){
     //Run if left hand grip is grabbed or released
@@ -109,5 +119,25 @@ public class PlayerScript : MonoBehaviour {
             //wheelStartPos =
 	}
 
+    public void Accelerate()
+    {
 
+        Vector3 force = new Vector3(0, 0, 0);
+
+        if (forwardOrBack == 1)
+        {
+            force = transform.forward * thrust;
+        }
+        else if (forwardOrBack == -1)
+        {
+
+            force = -transform.forward * thrust;
+
+        }
+
+        //Add Force
+        rb.AddForce(force);
+
+
+    }
 }

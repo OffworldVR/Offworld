@@ -48,11 +48,11 @@
 
 
         //Variables we added
-        public shipMovement shipScript;
+        public PlayerScript playerScript;
 
         void Start()
         {
-            shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
+            playerScript = transform.root.GetComponent<PlayerScript>();
 
         }
 
@@ -289,7 +289,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
-            shipScript.forwardOrBack = 1;
+            playerScript.forwardOrBack = 1;
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -298,7 +298,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
-            shipScript.forwardOrBack = 0;
+            playerScript.forwardOrBack = 0;
         }
 
         private void DoTriggerTouchStart(object sender, ControllerInteractionEventArgs e)
@@ -371,7 +371,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
             }
-            shipScript.forwardOrBack = -1;
+            playerScript.forwardOrBack = -1;
         }
 
         private void DoGripReleased(object sender, ControllerInteractionEventArgs e)
@@ -380,7 +380,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "released", e);
             }
-            shipScript.forwardOrBack = 0;
+            playerScript.forwardOrBack = 0;
         }
 
         private void DoGripTouchStart(object sender, ControllerInteractionEventArgs e)
