@@ -13,6 +13,10 @@ public class PlayerScript : MonoBehaviour {
     public Transform leftHandTransform;
     public Transform wheel;
 
+		public float WHEEL_ROTATE_SPEED_MULTIPLIER;
+		public float WHEEL_PULL_SPEED_MULTIPLIER;
+		public float TEST_SPEED;
+
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
     private Vector3 wheelStartPos;
@@ -40,13 +44,14 @@ public class PlayerScript : MonoBehaviour {
             UpdateRoll();
 						Move();
 						//TODO REMOVE THIS
-						// rb.AddForce(transform.forward);
         }
+				// rb.velocity = transform.forward*Time.deltaTime*TEST_SPEED;
+				transform.position += transform.forward*Time.deltaTime*TEST_SPEED;
 	}
 
 	public void Move(){
-		transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime);
-		// transform.RotateAround(transform.position, transform.right, wheelDistance*100*Time.deltaTime);
+		transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*WHEEL_ROTATE_SPEED_MULTIPLIER);
+		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*WHEEL_PULL_SPEED_MULTIPLIER);
 	}
 
   public void UpdatePitch()
@@ -54,15 +59,12 @@ public class PlayerScript : MonoBehaviour {
       //float distanceBetween = OriginalGrabPosition.z - NewGrabPosition.z;
 
       //wheel.localPosition = wheelStartPos + new Vector3(0,0, -distanceBetween);
-      wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f, 0.3f));
-			wheelDistance = wheel.localPosition.z;
+      wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
+			wheelDistance = wheel.localPosition.z-wheelStartPos.z;
       // Debug.Log(distanceBetween);
 
       //Call script to move ship forward
       // shipScript.shipForward(wheelStartPos.z-rightHandTransform.localPosition.z);
-
-
-
   }
 
   public void UpdateRoll()
@@ -70,7 +72,7 @@ public class PlayerScript : MonoBehaviour {
       //Calculate angle between 4 points
       // Vector3 vector1 = new Vector3(OriginalGrabPosition.x, OriginalGrabPosition.y, 0) - new Vector3(wheelStartPos.x, wheelStartPos.y, 0);
 			Vector3 vector1 = transform.right;
-      Vector3 vector2 = new Vector3(NewGrabPosition.x, NewGrabPosition.y, 0) - new Vector3(wheel.position.x, wheel.position.y, 0);
+      Vector3 vector2 = NewGrabPosition - wheel.position;
 
       // saveGrabPos = rightHandTransform.position;
 
@@ -78,7 +80,9 @@ public class PlayerScript : MonoBehaviour {
 
       //Calculate cross product to determine polarity of angle
       Vector3 cross = Vector3.Cross(vector1, vector2);
-      if (cross.z < 0) degreeBetween = -degreeBetween;
+      if (Vector3.Angle(cross, transform.forward)>90f){
+				degreeBetween = -degreeBetween;
+			}
 			wheelRotation = degreeBetween;
 
       //Rotate physical wheel
@@ -110,10 +114,10 @@ public class PlayerScript : MonoBehaviour {
         //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
     if (!canSteer){
         OriginalGrabPosition = rightHandTransform.localPosition;
-				wheelStartPos = wheel.localPosition;
+				// wheelStartPos = wheel.localPosition;
     }
+		// canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
-            //wheelStartPos =
 	}
 
 
