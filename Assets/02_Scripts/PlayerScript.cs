@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class PlayerScript : MonoBehaviour {
 	bool leftHandleIsTriggered = false;
@@ -114,9 +115,14 @@ public class PlayerScript : MonoBehaviour {
         //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
     if (!canSteer){
         OriginalGrabPosition = rightHandTransform.localPosition;
-				// wheelStartPos = wheel.localPosition;
-    }
-		// canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
+				if(rightHandleIsTriggered && rightTriggerIsTriggered){
+					VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
+				}
+    }else{
+			if(!(rightHandleIsTriggered && rightTriggerIsTriggered)){
+				VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
+			}
+		}
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
 	}
 
