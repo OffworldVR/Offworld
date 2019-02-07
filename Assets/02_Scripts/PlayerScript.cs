@@ -29,17 +29,18 @@ public class PlayerScript : MonoBehaviour {
     private float wheelDistance;
 
     //Determines for of acceleration
-    public float thrust = 10000f;
+    public float Thrust = 10f;
 
     //Changed by LH_Listener to 0 if force is positive or 1 if negative 
-    public int forwardOrBack = 0;
+    public int ForwardOrBack = 0;
 
     void Start () {
         //Set original wheel Position
         wheelStartPos = wheel.position;
 
 		rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.zero;
+
+        //rb.velocity = Vector3.zero;
 
     }
 
@@ -54,8 +55,8 @@ public class PlayerScript : MonoBehaviour {
             Accelerate();
         }
 
-		//rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
-		//transform.position += transform.forward*Time.deltaTime*TEST_SPEED;
+        //rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
+        //transform.position += transform.forward * Time.deltaTime * Test_Speed;
 	}
 
 	public void Move(){
@@ -67,25 +68,26 @@ public class PlayerScript : MonoBehaviour {
     public void Accelerate()
     {
 
-        Vector3 force = new Vector3(0, 0, 0);
+            Vector3 force = new Vector3(0, 0, 0);
 
-        if (forwardOrBack == 1)
+        if (ForwardOrBack == 1)
         {
-            force = transform.forward * thrust;
-            rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
-
+            force = transform.forward * Thrust;
+            //rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
+            transform.position += transform.forward * Time.deltaTime * Test_Speed;
         }
-        else if (forwardOrBack == -1)
+        else if (ForwardOrBack == -1)
         {
 
-            force = -transform.forward * thrust;
-            rb.velocity = -1*transform.forward * Time.deltaTime * Test_Speed;
+            force = -transform.forward * Thrust;
+            //rb.velocity = -1*transform.forward * Time.deltaTime * Test_Speed;
+            transform.position -= transform.forward * Time.deltaTime * Test_Speed;
 
 
         }
         else
         {
-            rb.velocity = Vector3.zero;
+            //rb.velocity = Vector3.zero;
             
 
         }
@@ -133,37 +135,37 @@ public class PlayerScript : MonoBehaviour {
 
 	public void HandleTriggered(int handleNum, bool isTriggered){
 		if(handleNum==0){
-						leftHandleIsTriggered = isTriggered;
+		    leftHandleIsTriggered = isTriggered;
 		}else{
-				rightHandleIsTriggered = isTriggered;
+			rightHandleIsTriggered = isTriggered;
         //Set Position where wheel is grabbed
-    }
-    CheckSteering();
+        }
+        CheckSteering();
 	}
 
 	public void TriggerTriggered(int handNum, bool isTriggered){
     //Run if left hand grip is grabbed or released
-    if (handNum == 0){
-        leftTriggerIsTriggered = isTriggered;
-    }else{
-    //Run if right hand grip is grabbed or release
-        rightTriggerIsTriggered = isTriggered;
-    }
-		CheckSteering();
+        if (handNum == 0){
+            leftTriggerIsTriggered = isTriggered;
+        }else{
+        //Run if right hand grip is grabbed or release
+            rightTriggerIsTriggered = isTriggered;
+        }
+		    CheckSteering();
 	}
 
 	public void CheckSteering(){
         //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
-    if (!canSteer){
-        OriginalGrabPosition = rightHandTransform.localPosition;
-				if(rightHandleIsTriggered && rightTriggerIsTriggered){
-					VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
-				}
-    }else{
-			if(!(rightHandleIsTriggered && rightTriggerIsTriggered)){
-				VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
-			}
-		}
+        if (!canSteer){
+            OriginalGrabPosition = rightHandTransform.localPosition;
+		    if(rightHandleIsTriggered && rightTriggerIsTriggered){
+			    VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
+		    }
+        }else{
+		    if(!(rightHandleIsTriggered && rightTriggerIsTriggered)){
+			   VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
+		    }
+	    }
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
 	}
 
