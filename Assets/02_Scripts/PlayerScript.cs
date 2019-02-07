@@ -14,48 +14,89 @@ public class PlayerScript : MonoBehaviour {
     public Transform leftHandTransform;
     public Transform wheel;
 
-		public float WHEEL_ROTATE_SPEED_MULTIPLIER;
-		public float WHEEL_PULL_SPEED_MULTIPLIER;
-		public float TEST_SPEED;
+	public float Wheel_Rotate_Speed_Multiplier;
+	public float Wheel_Pull_Speed_Multiplier;
+	public float Test_Speed;
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
     private Vector3 wheelStartPos;
-		private Rigidbody rb;
-		private float wheelRotation;
-		private float wheelDistance;
-
-    // public GameObject shipToMove;
-    // public shipMovement shipScript;
     private Vector3 saveGrabPos;
+
+    private Rigidbody rb;
+
+    private float wheelRotation;
+    private float wheelDistance;
+
+    //Determines for of acceleration
+    public float thrust = 10000f;
+
+    //Changed by LH_Listener to 0 if force is positive or 1 if negative 
+    public int forwardOrBack = 0;
 
     void Start () {
         //Set original wheel Position
         wheelStartPos = wheel.position;
-				rb = GetComponent<Rigidbody>();
-        //Get ship script
-        // shipScript = GameObject.Find("Ship").GetComponent<shipMovement>();
+
+		rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+
     }
 
     void Update () {
+
         if (canSteer)
         {
             NewGrabPosition = rightHandTransform.position;
             UpdatePitch();
             UpdateRoll();
-						Move();
-						//TODO REMOVE THIS
+            Move();
+            Accelerate();
         }
-				// rb.velocity = transform.forward*Time.deltaTime*TEST_SPEED;
-				transform.position += transform.forward*Time.deltaTime*TEST_SPEED;
+
+		//rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
+		//transform.position += transform.forward*Time.deltaTime*TEST_SPEED;
 	}
 
 	public void Move(){
-		transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*WHEEL_ROTATE_SPEED_MULTIPLIER);
-		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*WHEEL_PULL_SPEED_MULTIPLIER);
+		transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*Wheel_Rotate_Speed_Multiplier);
+		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier);
 	}
 
-  public void UpdatePitch()
+
+    public void Accelerate()
+    {
+
+        Vector3 force = new Vector3(0, 0, 0);
+
+        if (forwardOrBack == 1)
+        {
+            force = transform.forward * thrust;
+            rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
+
+        }
+        else if (forwardOrBack == -1)
+        {
+
+            force = -transform.forward * thrust;
+            rb.velocity = -1*transform.forward * Time.deltaTime * Test_Speed;
+
+
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            
+
+        }
+
+        //Add Force
+        //rb.AddForce(force);
+
+
+    }
+
+    public void UpdatePitch()
   {
       //float distanceBetween = OriginalGrabPosition.z - NewGrabPosition.z;
 

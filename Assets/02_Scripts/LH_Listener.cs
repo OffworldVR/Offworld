@@ -1,4 +1,4 @@
-﻿namespace VRTK.Examples
+﻿ namespace VRTK.Examples
 {
     using UnityEngine;
 
@@ -44,6 +44,15 @@
         public bool pinkyFingerSenseAxisEvents = true;
 
         private VRTK_ControllerEvents controllerEvents;
+
+        //Variables we added
+        public PlayerScript playerScript;
+
+        void Start()
+        {
+            playerScript = transform.root.GetComponent<PlayerScript>();
+
+        }
 
         private void OnEnable()
         {
@@ -277,7 +286,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
-
+            playerScript.forwardOrBack = 1;
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -286,6 +295,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
+            playerScript.forwardOrBack = 0;
         }
 
         private void DoTriggerTouchStart(object sender, ControllerInteractionEventArgs e)
@@ -358,7 +368,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
             }
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(0, true);
+            playerScript.forwardOrBack = -1;
 
         }
 
@@ -368,8 +378,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "released", e);
             }
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(0, false);
-
+            playerScript.forwardOrBack = 0;
         }
 
         private void DoGripTouchStart(object sender, ControllerInteractionEventArgs e)
