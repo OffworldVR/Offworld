@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/05_Imports/Sky.mat.meta
 guid: ce99342a2f22cc749b4482e27c76de64
 NativeFormatImporter:
+=======
+guid: 0b2a145159ce10346abb11f2a70e0ffd
+folderAsset: yes
+DefaultImporter:
+>>>>>>> space_map_prototype:Assets/03_Models.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 
