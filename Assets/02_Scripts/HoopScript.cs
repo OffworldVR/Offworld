@@ -5,10 +5,13 @@ using UnityEngine;
 public class HoopScript : MonoBehaviour {
 
 	public int hoopNum;
+	public bool forPlayer;
 
 	// Use this for initialization
 	void Start () {
-
+		if(!forPlayer){
+			transform.GetChild(0).gameObject.SetActive(false);
+		}
 	}
 
 	// Update is called once per frame
