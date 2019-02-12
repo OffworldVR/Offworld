@@ -9,10 +9,10 @@ public class MoveAction : Action
 
     public override void Act(StateController controller)
     {
-        Move(controller);
+        Movement(controller);
     }
 
-    private void Move(StateController controller)
+    private void Movement(StateController controller)
     {
         MovementScript.GetComponent<PlayerScript>().Move();
     }
