@@ -44,6 +44,15 @@ namespace VRTK.Examples
 
         private VRTK_ControllerEvents controllerEvents;
 
+        //Variables we added
+        public PlayerScript playerScript;
+
+        void Start()
+        {
+            playerScript = transform.root.GetComponent<PlayerScript>();
+
+        }
+
         private void OnEnable()
         {
             controllerEvents = GetComponent<VRTK_ControllerEvents>();
@@ -276,6 +285,7 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
+            playerScript.GripTriggered(0, true);
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -284,7 +294,7 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
-
+            playerScript.GripTriggered(1, false);
 
         }
 
@@ -358,7 +368,7 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
             }
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, true);
+            playerScript.TriggerTriggered(1, true);
 
         }
 
@@ -368,7 +378,7 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "released", e);
             }
-            transform.root.GetComponent<PlayerScript>().TriggerTriggered(1, false);
+            playerScript.TriggerTriggered(1, false);
 
         }
 

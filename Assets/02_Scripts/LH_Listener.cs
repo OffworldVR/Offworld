@@ -286,7 +286,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "pressed", e);
             }
-            playerScript.ForwardOrBack = 1;
+            playerScript.TriggerTriggered(0, true);
         }
 
         private void DoTriggerReleased(object sender, ControllerInteractionEventArgs e)
@@ -295,7 +295,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "TRIGGER", "released", e);
             }
-            playerScript.ForwardOrBack = 0;
+            playerScript.TriggerTriggered(0, false);
         }
 
         private void DoTriggerTouchStart(object sender, ControllerInteractionEventArgs e)
@@ -368,7 +368,7 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "pressed", e);
             }
-            playerScript.ForwardOrBack = -1;
+            playerScript.GripTriggered(0, true);
 
         }
 
@@ -378,7 +378,8 @@
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "GRIP", "released", e);
             }
-            playerScript.ForwardOrBack = 0;
+            playerScript.GripTriggered(0, false);
+
         }
 
         private void DoGripTouchStart(object sender, ControllerInteractionEventArgs e)
