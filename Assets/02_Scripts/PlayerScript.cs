@@ -4,19 +4,30 @@ using UnityEngine;
 using VRTK;
 
 public class PlayerScript : MonoBehaviour {
+
+    //True when left right hand enters rightHandle
 	bool leftHandleIsTriggered = false;
 	bool rightHandleIsTriggered = false;
+
+    //True when trigger is pressed
 	bool leftTriggerIsTriggered = false;
 	bool rightTriggerIsTriggered = false;
-	bool canSteer = false;
+
+    //True when grib is pressed.
+    bool leftGripIsTriggered = false;
+    bool rightGripIsTriggered = false;
+
+    //True when all conditions for steering are met
+    bool canSteer = false;
 
     public Transform rightHandTransform;
     public Transform leftHandTransform;
     public Transform wheel;
-
+    
 	public float Wheel_Rotate_Speed_Multiplier = 300;
 	public float Wheel_Pull_Speed_Multiplier = 240;
     public float Velocity_Multiplier;
+    public float Max_Velocity = 1000;
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
@@ -27,7 +38,7 @@ public class PlayerScript : MonoBehaviour {
 
     private float wheelRotation;
     private float wheelDistance;
-    private float velocity = 0;
+    public float velocity = 0;
 
 
     //Changed by LH_Listener to 0 if force is positive or 1 if negative 
@@ -40,7 +51,9 @@ public class PlayerScript : MonoBehaviour {
 
 		rb = GetComponent<Rigidbody>();
 
-        //rb.velocity = Vector3.zero;
+
+
+
 
     }
 
@@ -51,24 +64,30 @@ public class PlayerScript : MonoBehaviour {
             NewGrabPosition = rightHandTransform.position;
             UpdatePitch();
             UpdateRoll();
-            Move();
-            Accelerate();
+            rotate();
+           
         }
 
-        //rb.velocity = transform.forward*Time.deltaTime*Test_Speed;
-        //transform.position += transform.forward * Time.deltaTime * Test_Speed;
-	}
+        Accelerate();
+        move();
+      
+    }
 
     public void Laser()
     {
-
+        if (leftTriggerIsTriggered)
+        {
+            
+        }
     }
 
-	public void Move(){
-
+    private void move()
+    {
         //Move forward based on current velocity
         transform.position += transform.forward * Time.deltaTime * velocity;
-
+    }
+	private void rotate(){
+    
         //Rotate around z and y axis depending on position of steering wheel
         transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*Wheel_Rotate_Speed_Multiplier);
 		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier);
@@ -78,10 +97,25 @@ public class PlayerScript : MonoBehaviour {
     public void Accelerate()
     {
 
-        //If left hand trigger is pressed accelerate the ship
-        if (leftHandleIsTriggered == true)
+        if (canSteer)
         {
-            velocity += Time.deltaTime * Velocity_Multiplier;
+            //If left hand trigger is pressed accelerate the ship
+
+            if (leftGripIsTriggered == true)
+            {
+                if (velocity < Max_Velocity)
+                {
+                    velocity += Time.deltaTime * Velocity_Multiplier;
+                }
+            }
+        }
+
+        if (leftGripIsTriggered == false)
+        {
+            if(velocity > 0)
+            {
+                velocity -= Time.deltaTime * Velocity_Multiplier;
+            }
         }
 
     }
@@ -122,7 +156,7 @@ public class PlayerScript : MonoBehaviour {
         //handleNum = 0 for left hand
         //handleNum = 1 for right hand
         
-        //isTriggered is true when Trigger is pressed in
+        //isTriggered is true when right hand enters the right steering wheel grip collider
 
         if (handleNum==0)
         {
@@ -155,16 +189,45 @@ public class PlayerScript : MonoBehaviour {
 		    CheckSteering();
 	}
 
-	public void CheckSteering(){
-        //canSteer = leftHandleIsTriggered && rightHandleIsTriggered && leftTriggerIsTriggered && rightTriggerIsTriggered;
-        if (!canSteer){
+    public void GripTriggered(int handNum, bool isTriggered)
+    {
+
+        //handleNum = 0 for left hand
+        //handleNum = 1 for right hand
+
+        //isTriggered is true when Grip is pressed in
+
+        if (handNum == 0)
+        {
+            //Run if left hand grip is grabbed or released
+            leftGripIsTriggered = isTriggered;
+        }
+        else
+        {
+            //Run if right hand grip is grabbed or release
+            rightGripIsTriggered = isTriggered;
+        }
+    }
+    public void CheckSteering(){
+
+        //Determine if the steering is activated and can be controller
+        if (!canSteer)
+        {
+            
             OriginalGrabPosition = rightHandTransform.localPosition;
-		    if(rightHandleIsTriggered && rightTriggerIsTriggered){
+
+		    if(rightHandleIsTriggered && rightTriggerIsTriggered)
+            {
+                //Vibrate Controller
 			    VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
 		    }
-        }else{
-		    if(!(rightHandleIsTriggered && rightTriggerIsTriggered)){
-			   VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
+        }
+        else
+        {
+		    if(!(rightHandleIsTriggered && rightTriggerIsTriggered))
+            {
+                //Vibrate Controller
+                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
 		    }
 	    }
 		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered;
