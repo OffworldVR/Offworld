@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour {
     
 	public float Wheel_Rotate_Speed_Multiplier = 300;
 	public float Wheel_Pull_Speed_Multiplier = 240;
-    public float Velocity_Multiplier;
+    public float Velocity_Multiplier = 10;
     public float Max_Velocity = 1000;
 
     private Vector3 OriginalGrabPosition;
@@ -45,16 +45,18 @@ public class PlayerScript : MonoBehaviour {
     public int LH_Grip_Pressed = 0;
     public int LH_Trigger_Pressed = 0;
 
+
+    private GameObject[] lasers;
+
     void Start () {
         //Set original wheel Position
         wheelStartPos = wheel.position;
 
 		rb = GetComponent<Rigidbody>();
 
-
-
-
-
+        //Get lasers
+        lasers[0] = GameObject.Find("Player/FoxShip/Laser");
+        lasers[1] = GameObject.Find("Player/FoxShip/Laser1");
     }
 
     void Update () {
@@ -77,7 +79,14 @@ public class PlayerScript : MonoBehaviour {
     {
         if (leftTriggerIsTriggered)
         {
-            
+            lasers[0].SetActive(true);
+            lasers[1].SetActive(true);
+
+        }
+        else
+        {
+            lasers[0].SetActive(false);
+            lasers[1].SetActive(false);
         }
     }
 
