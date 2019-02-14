@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 74afcebe2e59de44cbcae39ac63d47f2
+guid: faf7a9c0dfd2ce8488c311b14fb6297d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -44,27 +44,7 @@ ModelImporter:
     4300008: LM
     4300010: RO
     4300012: Center
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Center
-    second: {fileID: 2100000, guid: db295119c6131904bbfde4cc61dbe2c7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Inner
-    second: {fileID: 2100000, guid: 91b6c9ee3505320438d419d23c7b32be, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mid
-    second: {fileID: 2100000, guid: b52f7d513a7278d4892c1cf0ae99e209, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Outer
-    second: {fileID: 2100000, guid: 6d2b462d6b25418458ffea4ddc03799d, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0

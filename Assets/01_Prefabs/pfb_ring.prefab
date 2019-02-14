@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65606876018156270}
   m_Layer: 0
   m_Name: pfb_ring
-  m_TagString: Untagged
+  m_TagString: Ring
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1263892534017794
 GameObject:
   m_ObjectHideFlags: 1
@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1449687210348180
 GameObject:
   m_ObjectHideFlags: 1
@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4112359298468402
 Transform:
   m_ObjectHideFlags: 1
@@ -179,7 +179,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208920503669186}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -229.39417, y: -624.4309, z: 117.23346}
+  m_LocalPosition: {x: -229.39417, y: -624.4309, z: 16.933441}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4353151084712038}
@@ -458,3 +458,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d51616bda1dcf34aa76cc7418384354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoopNum: 93
+  forPlayer: 1

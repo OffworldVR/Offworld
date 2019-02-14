@@ -22,12 +22,14 @@ public class PlayerScript : MonoBehaviour {
 
     public Transform rightHandTransform;
     public Transform leftHandTransform;
-    public Transform wheel;
+		public Transform wheel;
+		public Transform midwheel;
+    public Transform inwheel;
 
 		public float Wheel_Rotate_Speed_Multiplier = 300;
 		public float Wheel_Pull_Speed_Multiplier = 240;
     public float Velocity_Multiplier = 10;
-    public float Max_Velocity = 500;
+    public float Max_Velocity = 50;
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
@@ -145,7 +147,9 @@ public class PlayerScript : MonoBehaviour {
     public void UpdatePitch()
     {
         //Determine new wheel position based on clamped position values of the right hand
-        wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
+				wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
+				midwheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
+        inwheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
 
         //Update displacement from hand to original wheel position
         wheelDistance = wheel.localPosition.z-wheelStartPos.z;
@@ -169,7 +173,9 @@ public class PlayerScript : MonoBehaviour {
 			wheelRotation = degreeBetween;
 
          //Rotate wheel gameObject
-         wheel.eulerAngles = new Vector3(0, 0, degreeBetween) + transform.eulerAngles;
+				 wheel.eulerAngles = new Vector3(0, 0, degreeBetween) + transform.eulerAngles;
+				 midwheel.eulerAngles = new Vector3(0, 0, degreeBetween*2/3) + transform.eulerAngles;
+         inwheel.eulerAngles = new Vector3(0, 0, degreeBetween/3) + transform.eulerAngles;
     }
 
 
