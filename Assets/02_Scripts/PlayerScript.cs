@@ -23,11 +23,11 @@ public class PlayerScript : MonoBehaviour {
     public Transform rightHandTransform;
     public Transform leftHandTransform;
     public Transform wheel;
-    
-	public float Wheel_Rotate_Speed_Multiplier = 300;
-	public float Wheel_Pull_Speed_Multiplier = 240;
+
+		public float Wheel_Rotate_Speed_Multiplier = 300;
+		public float Wheel_Pull_Speed_Multiplier = 240;
     public float Velocity_Multiplier = 10;
-    public float Max_Velocity = 1000;
+    public float Max_Velocity = 500;
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
@@ -41,7 +41,7 @@ public class PlayerScript : MonoBehaviour {
     public float velocity = 0;
 
 
-    //Changed by LH_Listener to 0 if force is positive or 1 if negative 
+    //Changed by LH_Listener to 0 if force is positive or 1 if negative
     public int LH_Grip_Pressed = 0;
     public int LH_Trigger_Pressed = 0;
 
@@ -55,14 +55,14 @@ public class PlayerScript : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 
         //Get lasers
-        lasers.Add(transform.Find("Laser").gameObject);
-        lasers.Add(transform.Find("Laser1").gameObject);
-        if (lasers[0] == null)
-        {
-            Debug.Log("Laser Game Object not found");
-        }
-        lasers[0].SetActive(false);
-        lasers[1].SetActive(false);
+        // lasers.Add(transform.Find("Laser").gameObject);
+        // lasers.Add(transform.Find("Laser1").gameObject);
+        // if (lasers[0] == null)
+        // {
+        //     Debug.Log("Laser Game Object not found");
+        // }
+        // lasers[0].SetActive(false);
+        // lasers[1].SetActive(false);
     }
 
     void Update () {
@@ -73,13 +73,13 @@ public class PlayerScript : MonoBehaviour {
             UpdatePitch();
             UpdateRoll();
             rotate();
-            Laser();
-           
-        }   
+            // Laser();
+
+        }
 
         Accelerate();
         move();
-      
+
     }
 
     public void Laser()
@@ -107,10 +107,12 @@ public class PlayerScript : MonoBehaviour {
         //Create a rotate multiplier based on velocity mapped to 1 to 0
         float rotateMultiplier = 0;
         rotateMultiplier = velocity / Max_Velocity;
-        
+				rotateMultiplier = 1;
+
+
         //Rotate around z and y axis depending on position of steering wheel
         transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*Wheel_Rotate_Speed_Multiplier*rotateMultiplier);
-		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier*rotateMultiplier);
+				transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier*rotateMultiplier);
 	}
 
 
@@ -141,10 +143,10 @@ public class PlayerScript : MonoBehaviour {
     }
 
     public void UpdatePitch()
-    {    
+    {
         //Determine new wheel position based on clamped position values of the right hand
         wheel.localPosition = new Vector3(wheel.localPosition.x, wheel.localPosition.y, Mathf.Clamp(rightHandTransform.localPosition.z, -0.3f+wheelStartPos.z, 0.3f+wheelStartPos.z));
-        
+
         //Update displacement from hand to original wheel position
         wheelDistance = wheel.localPosition.z-wheelStartPos.z;
 
@@ -169,13 +171,13 @@ public class PlayerScript : MonoBehaviour {
          //Rotate wheel gameObject
          wheel.eulerAngles = new Vector3(0, 0, degreeBetween) + transform.eulerAngles;
     }
-    
+
 
 	public void HandleTriggered(int handleNum, bool isTriggered){
 
         //handleNum = 0 for left hand
         //handleNum = 1 for right hand
-        
+
         //isTriggered is true when right hand enters the right steering wheel grip collider
 
         if (handleNum==0)
@@ -233,7 +235,7 @@ public class PlayerScript : MonoBehaviour {
         //Determine if the steering is activated and can be controller
         if (!canSteer)
         {
-            
+
             OriginalGrabPosition = rightHandTransform.localPosition;
 
 		    if(rightHandleIsTriggered && rightTriggerIsTriggered)
