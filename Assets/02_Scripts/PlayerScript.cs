@@ -46,7 +46,7 @@ public class PlayerScript : MonoBehaviour {
     public int LH_Trigger_Pressed = 0;
 
 
-    private GameObject[] lasers;
+    private List<GameObject> lasers = new List<GameObject>();
 
     void Start () {
         //Set original wheel Position
@@ -55,8 +55,14 @@ public class PlayerScript : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 
         //Get lasers
-        lasers[0] = GameObject.Find("Player/FoxShip/Laser");
-        lasers[1] = GameObject.Find("Player/FoxShip/Laser1");
+        lasers.Add(transform.Find("Laser").gameObject);
+        lasers.Add(transform.Find("Laser1").gameObject);
+        if (lasers[0] == null)
+        {
+            Debug.Log("Laser Game Object not found");
+        }
+        lasers[0].SetActive(false);
+        lasers[1].SetActive(false);
     }
 
     void Update () {
@@ -67,8 +73,9 @@ public class PlayerScript : MonoBehaviour {
             UpdatePitch();
             UpdateRoll();
             rotate();
+            Laser();
            
-        }
+        }   
 
         Accelerate();
         move();
@@ -96,10 +103,14 @@ public class PlayerScript : MonoBehaviour {
         transform.position += transform.forward * Time.deltaTime * velocity;
     }
 	private void rotate(){
-    
+
+        //Create a rotate multiplier based on velocity mapped to 1 to 0
+        float rotateMultiplier = 0;
+        rotateMultiplier = velocity / Max_Velocity;
+        
         //Rotate around z and y axis depending on position of steering wheel
-        transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*Wheel_Rotate_Speed_Multiplier);
-		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier);
+        transform.RotateAround(transform.position, transform.forward, wheelRotation*Time.deltaTime*Wheel_Rotate_Speed_Multiplier*rotateMultiplier);
+		transform.RotateAround(transform.position, transform.right, wheelDistance*Time.deltaTime*Wheel_Pull_Speed_Multiplier*rotateMultiplier);
 	}
 
 
