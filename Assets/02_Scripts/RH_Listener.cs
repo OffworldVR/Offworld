@@ -46,11 +46,12 @@ namespace VRTK.Examples
 
         //Variables we added
         public PlayerScript playerScript;
+        private GameManagerScript gm;
 
         void Start()
         {
             playerScript = transform.root.GetComponent<PlayerScript>();
-
+            gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         }
 
         private void OnEnable()
@@ -500,6 +501,7 @@ namespace VRTK.Examples
             {
                 DebugLogger(VRTK_ControllerReference.GetRealIndex(e.controllerReference), "BUTTON ONE", "pressed down", e);
             }
+            gm.ButtonOnePressed();
         }
 
         private void DoButtonOneReleased(object sender, ControllerInteractionEventArgs e)

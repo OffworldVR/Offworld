@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour {
+	public int numLaps;
 	public Material toPassOuter;
 	public Material passedOuter;
 	public Material nextOuter;
@@ -13,6 +15,8 @@ public class GameManagerScript : MonoBehaviour {
 	private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
 	private int nextHoop = -1;
+	private int currLap = -1;
+	private bool readyToEnd = false;
 
 	void Start () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
@@ -27,6 +31,9 @@ public class GameManagerScript : MonoBehaviour {
 	}
 
 	private int FindNextHoop(int n){
+		if(n==allHoops.Length-1){
+			return 0;
+		}
 		int min = 1000;
 		int prevHoop = n;
 		foreach(HoopScript h in playerHoops){
@@ -56,31 +63,41 @@ public class GameManagerScript : MonoBehaviour {
 		return null;
 	}
 
-	public void HitInner(int n){
-		Debug.Log(n);
-		Debug.Log(nextHoop);
+	private void HitHoop(int n){
 		if(n==nextHoop){
-			Transform hp = GetHoopWithNum(n);
-			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
-			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
-			nextHoop = FindNextHoop(n);
-			hp = GetHoopWithNum(nextHoop);
-			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
-			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
+			if(n==0){
+				currLap++;
+			}
+			if(currLap==numLaps){
+				EndGame();
+			}else{
+				Transform hp = GetHoopWithNum(n);
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
+				nextHoop = FindNextHoop(n);
+				hp = GetHoopWithNum(nextHoop);
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
+			}
 		}
 	}
 
+	public void HitInner(int n){
+		//TODO GET ITEM
+		HitHoop(n);
+	}
+
 	public void HitOuter(int n){
-		Debug.Log(n);
-		Debug.Log(nextHoop);
-		if(n==nextHoop){
-			Transform hp = GetHoopWithNum(n);
-			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
-			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
-			nextHoop = FindNextHoop(n);
-			hp = GetHoopWithNum(nextHoop);
-			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
-			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
+		HitHoop(n);
+	}
+
+	private void EndGame(){
+		readyToEnd = true;
+	}
+
+	public void ButtonOnePressed(){
+		if(readyToEnd){
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 }
