@@ -28,8 +28,8 @@ public class PlayerScript : MonoBehaviour {
 
 		public float Wheel_Rotate_Speed_Multiplier = 300;
 		public float Wheel_Pull_Speed_Multiplier = 240;
-    public float Velocity_Multiplier = 10;
-    public float Max_Velocity = 50;
+    public float Acceleration = 10;
+    public float Max_Velocity = 15;
 
     private Vector3 OriginalGrabPosition;
     private Vector3 NewGrabPosition;
@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour {
         //Set original wheel Position
         wheelStartPos = wheel.position;
 
-		rb = GetComponent<Rigidbody>();
+				rb = GetComponent<Rigidbody>();
 
         //Get lasers
         // lasers.Add(transform.Find("Laser").gameObject);
@@ -81,7 +81,6 @@ public class PlayerScript : MonoBehaviour {
 
         Accelerate();
         move();
-
     }
 
     public void Laser()
@@ -124,21 +123,21 @@ public class PlayerScript : MonoBehaviour {
         if (canSteer)
         {
             //If left hand trigger is pressed accelerate the ship
-
             if (leftGripIsTriggered == true)
             {
                 if (velocity < Max_Velocity)
                 {
-                    velocity += Time.deltaTime * Velocity_Multiplier;
-                }
+                    velocity += Time.deltaTime * Acceleration;
+                }else{
+									velocity = Max_Velocity;
+								}
             }
         }
-
         if (leftGripIsTriggered == false)
         {
             if(velocity > 0)
             {
-                velocity -= Time.deltaTime * Velocity_Multiplier;
+                velocity -= Time.deltaTime * Acceleration;
             }
         }
 

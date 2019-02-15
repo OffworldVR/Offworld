@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour {
-	public Material toPass;
-	public Material passed;
-	public Material next;
+	public Material toPassOuter;
+	public Material passedOuter;
+	public Material nextOuter;
+	public Material toPassInner;
+	public Material passedInner;
+	public Material nextInner;
 
 	private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
@@ -58,12 +61,12 @@ public class GameManagerScript : MonoBehaviour {
 		Debug.Log(nextHoop);
 		if(n==nextHoop){
 			Transform hp = GetHoopWithNum(n);
-			hp.transform.GetChild(0).GetChild(3).GetComponent<MeshRenderer>().material = passed;
-			hp.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().material = passed;
+			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
+			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
 			nextHoop = FindNextHoop(n);
 			hp = GetHoopWithNum(nextHoop);
-			hp.transform.GetChild(0).GetChild(3).GetComponent<MeshRenderer>().material = next;
-			hp.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().material = next;
+			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
+			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
 		}
 	}
 
@@ -72,12 +75,12 @@ public class GameManagerScript : MonoBehaviour {
 		Debug.Log(nextHoop);
 		if(n==nextHoop){
 			Transform hp = GetHoopWithNum(n);
-			hp.transform.GetChild(0).GetChild(3).GetComponent<MeshRenderer>().material = passed;
-			hp.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().material = passed;
+			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
+			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
 			nextHoop = FindNextHoop(n);
 			hp = GetHoopWithNum(nextHoop);
-			hp.transform.GetChild(0).GetChild(3).GetComponent<MeshRenderer>().material = next;
-			hp.transform.GetChild(0).GetChild(4).GetComponent<MeshRenderer>().material = next;
+			hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
+			hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
 		}
 	}
 }

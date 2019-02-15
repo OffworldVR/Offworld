@@ -6737,8 +6737,8 @@ MonoBehaviour:
   inwheel: {fileID: 4736556437742348}
   Wheel_Rotate_Speed_Multiplier: 4
   Wheel_Pull_Speed_Multiplier: 400
-  Velocity_Multiplier: 10
-  Max_Velocity: 500
+  Acceleration: 10
+  Max_Velocity: 150
   velocity: 0
   LH_Grip_Pressed: 0
   LH_Trigger_Pressed: 0
