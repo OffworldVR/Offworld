@@ -32,10 +32,10 @@ public class HoopScript : MonoBehaviour {
 						}else{
 							gm.HitOuter(hoopNum);
 						}
-						Debug.Log("hit inner");
+						// Debug.Log("hit inner");
 					}else{
 						gm.HitOuter(hoopNum);
-						Debug.Log("hit outer");
+						// Debug.Log("hit outer");
 					}
 				}
 			}

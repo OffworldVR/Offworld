@@ -5,18 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour {
 	public int numLaps;
-	public Material toPassOuter;
-	public Material passedOuter;
-	public Material nextOuter;
-	public Material toPassInner;
-	public Material passedInner;
-	public Material nextInner;
+	public Material nextIn;
+	public Material nextIn1;
+	public Material nextIn2;
+	public Material nextOut;
+	public Material nextOut1;
+	public Material nextOut2;
+	public Material passed;
+
 
 	private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
+	private List<int> nextHoops = new List<int>();
 	private int nextHoop = -1;
 	private int currLap = -1;
 	private bool readyToEnd = false;
+
+	private bool go = false;
+	private float startTime;
 
 	void Start () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
@@ -26,8 +32,15 @@ public class GameManagerScript : MonoBehaviour {
 				playerHoops.Add(h);
 			}
 		}
+		setupNextHoops();
+	}
+
+	private void setupNextHoops(){
 		nextHoop = FindNextHoop(nextHoop);
-		Debug.Log(nextHoop);
+		nextHoops.Add(nextHoop);
+		for(var i = 0; i<2; i++){
+			nextHoops.Add(FindNextHoop(nextHoops[i]));
+		}
 	}
 
 	private int FindNextHoop(int n){
@@ -64,7 +77,7 @@ public class GameManagerScript : MonoBehaviour {
 	}
 
 	private void HitHoop(int n){
-		if(n==nextHoop){
+		if(n==nextHoops[0]){
 			if(n==0){
 				currLap++;
 			}
@@ -72,12 +85,22 @@ public class GameManagerScript : MonoBehaviour {
 				EndGame();
 			}else{
 				Transform hp = GetHoopWithNum(n);
-				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passedOuter;
-				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passedInner;
-				nextHoop = FindNextHoop(n);
-				hp = GetHoopWithNum(nextHoop);
-				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOuter;
-				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextInner;
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = passed;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = passed;
+				for(var i = 0; i<2; i++){
+					nextHoops[i] = nextHoops[i+1];
+				}
+				nextHoops[2] = FindNextHoop(nextHoops[1]);
+				hp = GetHoopWithNum(nextHoops[0]);
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOut;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextIn;
+				hp = GetHoopWithNum(nextHoops[1]);
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOut1;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextIn1;
+				hp = GetHoopWithNum(nextHoops[2]);
+				hp.transform.GetChild(0).Find("Outer").GetComponent<MeshRenderer>().material = nextOut2;
+				hp.transform.GetChild(0).Find("Inner").GetComponent<MeshRenderer>().material = nextIn2;
+				Debug.Log(nextHoops);
 			}
 		}
 	}
@@ -91,13 +114,24 @@ public class GameManagerScript : MonoBehaviour {
 		HitHoop(n);
 	}
 
+	public void BeginRace(){
+		go = true;
+		startTime = Time.time;
+		GameObject.Find("Player").GetComponent<PlayerScript>().CheckSteering();
+	}
+
 	private void EndGame(){
 		readyToEnd = true;
+		GameObject.Find("Player").GetComponent<PlayerScript>().ShowEndScoreboard(Time.time-startTime);
 	}
 
 	public void ButtonOnePressed(){
 		if(readyToEnd){
 			SceneManager.LoadScene("MainMenu");
 		}
+	}
+
+	public bool canGo(){
+		return go;
 	}
 }
