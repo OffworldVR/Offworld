@@ -10,13 +10,13 @@ public class PlayerScript : MonoBehaviour {
 		bool leftHandleIsTriggered = false;
 		bool rightHandleIsTriggered = false;
 
-    //True when trigger is pressed
-		bool leftTriggerIsTriggered = false;
-		bool rightTriggerIsTriggered = false;
+        //True when trigger is pressed
+		public bool leftTriggerIsTriggered = false;
+		public bool rightTriggerIsTriggered = false;
 
 		//True when grib is pressed.
-		bool leftGripIsTriggered = false;
-		bool rightGripIsTriggered = false;
+		public bool leftGripIsTriggered = false;
+		public bool rightGripIsTriggered = false;
 
 		//True when all conditions for steering are met
 		bool canSteer = false;
@@ -47,11 +47,12 @@ public class PlayerScript : MonoBehaviour {
 		//Changed by LH_Listener to 0 if force is positive or 1 if negative
 		public int LH_Grip_Pressed = 0;
 		public int LH_Trigger_Pressed = 0;
+        public int ActiveItem = -1;
+    
+        
+         
 
-
-		private List<GameObject> lasers = new List<GameObject>();
-
-		private GameManagerScript gm;
+        private GameManagerScript gm;
 
     void Start () {
         //Set original wheel Position
@@ -60,18 +61,11 @@ public class PlayerScript : MonoBehaviour {
 				rb = GetComponent<Rigidbody>();
 				gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
-        //Get lasers
-        // lasers.Add(transform.Find("Laser").gameObject);
-        // lasers.Add(transform.Find("Laser1").gameObject);
-        // if (lasers[0] == null)
-        // {
-        //     Debug.Log("Laser Game Object not found");
-        // }
-        // lasers[0].SetActive(false);
-        // lasers[1].SetActive(false);
+
     }
 
-    void Update () {
+    void Update ()
+    {
 
         if (canSteer)
         {
@@ -79,27 +73,19 @@ public class PlayerScript : MonoBehaviour {
             UpdatePitch();
             UpdateRoll();
             rotate();
-            // Laser();
+
+
+            //Activate which ever item is enabled
+
+            //GameObject.GetComponent<itemsScript>().activeItem();
         }
 
         Accelerate();
         move();
     }
 
-    public void Laser()
-    {
-        if (leftTriggerIsTriggered)
-        {
-            lasers[0].SetActive(true);
-            lasers[1].SetActive(true);
+ 
 
-        }
-        else
-        {
-            lasers[0].SetActive(false);
-            lasers[1].SetActive(false);
-        }
-    }
 
     private void move()
     {
