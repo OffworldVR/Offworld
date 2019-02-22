@@ -24,12 +24,14 @@ public class itemsScript : MonoBehaviour {
 
     private List<GameObject> lasers = new List<GameObject>();
 
-    public int totalItems = 1;
+    private int totalItems = 1;
 
 
 
-    void start()
+    void Start()
     {
+        deactivateItem();
+
         //Get player script from root
         playerScript = transform.root.GetComponent<PlayerScript>();
 
