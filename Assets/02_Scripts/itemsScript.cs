@@ -17,12 +17,11 @@ using UnityEngine;
 
 public class itemsScript : MonoBehaviour {
 
-    public delegate void ActiveItem();
-    ActiveItem activeItem;
+    private int activeItem;
 
     private PlayerScript playerScript;
 
-    private List<GameObject> lasers = new List<GameObject>();
+    //private List<GameObject> lasers = new List<GameObject>();
 
     private int totalItems = 1;
 
@@ -37,24 +36,36 @@ public class itemsScript : MonoBehaviour {
 
 
         //Get lasers GameObjects
-        lasers.Add(transform.Find("Laser").gameObject);
-        lasers.Add(transform.Find("Laser1").gameObject);
-        if (lasers[0] == null|| lasers[1] == null){
-            Debug.Log("Laser Game Object not found");
-        }
-        lasers[0].SetActive(false);
-        lasers[1].SetActive(false);
+        //transform.Find("Laser1").gameObject.SetActive(false);
+        //transform.Find("Laser1").gameObject.SetActive(false);
     }
+
+
+
+
+    public void activateItem(){
+
+        if(activeItem == 0){
+          return;
+        }
+        else if(activeItem == 1){
+          Laser();
+        }
+        else if(activeItem == 2){
+
+        }
+    }
+
+
+
+
+
+
 
     public void ItemSelector()
     {
         //Set active item to the number in the list
-        int randomNum = Random.Range(0, totalItems);
-
-        if(randomNum == 0)
-        {
-            activeItem = Laser;
-        }
+        activeItem = Random.Range(1, totalItems);
 
 
     }
@@ -63,20 +74,21 @@ public class itemsScript : MonoBehaviour {
     {
         if (playerScript.leftTriggerIsTriggered)
         {
-            lasers[0].SetActive(true);
-            lasers[1].SetActive(true);
+          transform.Find("Laser1").gameObject.SetActive(true);
+          transform.Find("Laser1").gameObject.SetActive(true);
 
         }
         else
         {
-            lasers[0].SetActive(false);
-            lasers[1].SetActive(false);
+          transform.Find("Laser1").gameObject.SetActive(false);
+          transform.Find("Laser1").gameObject.SetActive(false);
         }
     }
 
     //Set delegate to an empty function
     private void deactivateItem()
     {
-        activeItem = ()=>{ };
+        //activeItem = ()=>{ };
+        activeItem = 0;
     }
 }

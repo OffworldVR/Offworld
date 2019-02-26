@@ -48,11 +48,12 @@ public class PlayerScript : MonoBehaviour {
 		public int LH_Grip_Pressed = 0;
 		public int LH_Trigger_Pressed = 0;
         public int ActiveItem = -1;
-    
-        
-         
+
+
+
 
         private GameManagerScript gm;
+				private itemsScript itemsScript;
 
     void Start () {
         //Set original wheel Position
@@ -60,12 +61,14 @@ public class PlayerScript : MonoBehaviour {
 
 				rb = GetComponent<Rigidbody>();
 				gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-
+				//itemsScript = GameObject.GetComponent<itemsScript>();
 
     }
 
     void Update ()
     {
+			//delegate void ActiveItem();
+			//ActiveItem activeItem = GameObject.GetComponent<itemsScript>().activeItem;
 
         if (canSteer)
         {
@@ -76,15 +79,14 @@ public class PlayerScript : MonoBehaviour {
 
 
             //Activate which ever item is enabled
-
-            //GameObject.GetComponent<itemsScript>().activeItem();
+						gameObject.GetComponent<itemsScript>().activateItem();
         }
 
         Accelerate();
         move();
     }
 
- 
+
 
 
     private void move()

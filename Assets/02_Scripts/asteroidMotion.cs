@@ -24,7 +24,7 @@ public class asteroidMotion : MonoBehaviour
 
         gameObject.GetComponent<Rigidbody>().AddTorque(transform.up * h);
         gameObject.GetComponent<Rigidbody>().AddTorque(transform.right * v);
-        Debug.Log(timer);
+        //Debug.Log(timer);
         if (timer >= 0.0)
         {
             timer -= Time.fixedDeltaTime;
