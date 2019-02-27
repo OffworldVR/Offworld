@@ -43,6 +43,12 @@ public class MenuScript : MonoBehaviour {
     }
     public void SelectShip()
     {
-
+        PlayerPrefs.SetInt("Ship", chosenShip);
     }
+
+    public void SetCallibratedPos()
+    {
+        UnityEngine.XR.InputTracking.Recenter();
+    }
+
 }
