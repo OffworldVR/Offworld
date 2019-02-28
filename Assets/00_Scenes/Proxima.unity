@@ -971,6 +971,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1526246394476654, guid: 056c235fda65af544b5de964f5949f07, type: 2}
+      propertyPath: m_Name
+      value: Laser2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056c235fda65af544b5de964f5949f07, type: 2}
   m_IsPrefabAsset: 0

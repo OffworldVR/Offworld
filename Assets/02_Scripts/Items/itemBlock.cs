@@ -21,11 +21,11 @@ public class itemBlock : MonoBehaviour {
         if (c.transform.tag == "Player")
         {
             //Make block invisible
-						Debug.Log("ITEM BLOCK ENTERED");
+			Debug.Log("ITEM BLOCK ENTERED");
             gameObject.GetComponent<Renderer>().enabled = false;
 
             //Call itemSelector
-            c.transform.GetComponent<itemsScript>().ItemSelector();
+            items.ItemSelector();
         }
 
 

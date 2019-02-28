@@ -15,24 +15,26 @@ using UnityEngine;
 
 
 
-public class itemsScript : MonoBehaviour {
+public class items : MonoBehaviour {
 
-    private int activeItem;
+    public static int ActiveItem = 0;
 
-    private PlayerScript playerScript;
+    private static PlayerScript playerScript;
 
     //private List<GameObject> lasers = new List<GameObject>();
 
-    private int totalItems = 1;
+    private static int totalItems = 1;
 
+    public static items instance;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        deactivateItem();
 
         //Get player script from root
-        playerScript = transform.root.GetComponent<PlayerScript>();
 
 
         //Get lasers GameObjects
@@ -43,36 +45,27 @@ public class itemsScript : MonoBehaviour {
 
 
 
-    public void activateItem(){
-
-        if(activeItem == 0){
-          return;
-        }
-        else if(activeItem == 1){
-          Laser();
-        }
-        else if(activeItem == 2){
-
-        }
-    }
 
 
 
 
-
-
-
-    public void ItemSelector()
+    public static void ItemSelector()
     {
         //Set active item to the number in the list
-        activeItem = Random.Range(1, totalItems);
+        //activeItem = Random.Range(1, totalItems);
 
+        ActiveItem = 1;
 
+        if(ActiveItem == 1)
+        {
+            instance.Invoke("deactivateItem", 4);
+        }
+  
     }
 
     public void Laser()
     {
-        if (playerScript.leftTriggerIsTriggered)
+        if (PlayerScript.leftTriggerIsTriggered)
         {
           transform.Find("Laser1").gameObject.SetActive(true);
           transform.Find("Laser1").gameObject.SetActive(true);
@@ -89,6 +82,6 @@ public class itemsScript : MonoBehaviour {
     private void deactivateItem()
     {
         //activeItem = ()=>{ };
-        activeItem = 0;
+        ActiveItem = 0;
     }
 }
