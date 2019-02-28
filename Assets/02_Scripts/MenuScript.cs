@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class MenuScript : MonoBehaviour {
 
     string[] mapNames;
     int chosenMap;
     int chosenShip;
+    bool started;
+    public GameObject[] MenuScreens;
 
 	// Use this for initialization
 	void Start () {
+        UnityEngine.XR.InputTracking.Recenter();
+        started = false;
         mapNames = new string[3];
         mapNames[0] = "Proxima";
         mapNames[1] = "Angler";
@@ -21,7 +26,15 @@ public class MenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(!started)
+        {
+            if(OVRInput.GetDown(OVRInput.Button.One))
+            {
+                MenuScreens[0].SetActive(false);
+                MenuScreens[1].SetActive(true);
+                started = true;
+            }
+        }
 	}
 
     public void StageSelect(int i)
@@ -43,7 +56,17 @@ public class MenuScript : MonoBehaviour {
     }
     public void SelectShip()
     {
-        PlayerPrefs.SetInt("Ship", chosenShip);
+        PlayerPrefs.SetInt("ship", chosenShip);
+    }
+
+    public void MusicVol(UnityEngine.UI.Slider val)
+    {
+        PlayerPrefs.SetFloat("musicVolume", val.value);
+    }
+
+    public void SoundVol(UnityEngine.UI.Slider val)
+    {
+        PlayerPrefs.SetFloat("soundsVolume", val.value);
     }
 
     public void SetCallibratedPos()
