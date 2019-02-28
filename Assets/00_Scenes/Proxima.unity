@@ -5719,6 +5719,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185bc01cc0f680643936ca2100f7001a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &974602642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 974602637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9fff407404b6243b534b65f1f72b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laser1: {fileID: 1412148812}
+  laser2: {fileID: 1229099968}
 --- !u!1001 &982516660
 Prefab:
   m_ObjectHideFlags: 0
@@ -6328,6 +6341,11 @@ MonoBehaviour:
   nextOut1: {fileID: 2100000, guid: 36d78da2a7af7c244a214e09d65dc2dc, type: 2}
   nextOut2: {fileID: 2100000, guid: 5b21a4ad1d727894e8fa71f67f9b4364, type: 2}
   passed: {fileID: 2100000, guid: 57e52fecd038ed1439d94568978c6410, type: 2}
+--- !u!1 &1229099968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1526246394476654, guid: 056c235fda65af544b5de964f5949f07,
+    type: 2}
+  m_PrefabInternal: {fileID: 134784366}
 --- !u!1001 &1241423958
 Prefab:
   m_ObjectHideFlags: 0
@@ -7514,6 +7532,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4504504570562824, guid: 320094e3fd24ef4449a738ddb8448ec4,
     type: 2}
   m_PrefabInternal: {fileID: 1404804924}
+--- !u!1 &1412148812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1101132399547782, guid: 056c235fda65af544b5de964f5949f07,
+    type: 2}
+  m_PrefabInternal: {fileID: 134784366}
 --- !u!1001 &1470186356
 Prefab:
   m_ObjectHideFlags: 0

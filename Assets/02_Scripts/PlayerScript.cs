@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
-using TMPro;
+//using TMPro;
 
 public class PlayerScript : MonoBehaviour {
 
@@ -94,6 +94,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void activateItem()
     {
+        Debug.Log("activateItemFunctionInPlaerscrpt");
 
         if (activeItem == 0)
         {

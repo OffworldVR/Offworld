@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class lasers : items {
 
-    private GameObject laser1;
-    private GameObject laser2;
+    public GameObject laser1;
+    public GameObject laser2;
     // Use this for initialization
     void Start ()
     {
-        laser1 = transform.Find("Laser1").gameObject;
-        laser2 = transform.Find("Laser2").gameObject;
+        //laser1 = transform.Find("Laser1").gameObject;
+        //laser2 = transform.Find("Laser2").gameObject;
     }
 	
 
     public void activateItem()
     {
+        Debug.Log("Laser Activated");
         if (PlayerScript.leftTriggerIsTriggered)
         {
             laser1.SetActive(true);
