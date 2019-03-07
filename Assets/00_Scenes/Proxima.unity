@@ -981,6 +981,75 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056c235fda65af544b5de964f5949f07, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &137680626
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 8.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -20.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437316374017286, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337,
+        type: 2}
+      propertyPath: rightHandTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337,
+        type: 2}
+      propertyPath: leftHandTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337,
+        type: 2}
+      propertyPath: wheel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337,
+        type: 2}
+      propertyPath: midwheel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337,
+        type: 2}
+      propertyPath: inwheel
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114629667839807602, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+    - {fileID: 114557128983061866, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 7eb345848e1dca24fabbe38a91d4a337, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &148201780
 Prefab:
   m_ObjectHideFlags: 0
@@ -5927,7 +5996,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974602637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 185bc01cc0f680643936ca2100f7001a, type: 3}
   m_Name: 
@@ -29755,3 +29824,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4504504570562824, guid: 320094e3fd24ef4449a738ddb8448ec4,
     type: 2}
   m_PrefabInternal: {fileID: 2134048916}
+--- !u!1 &2134759837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1147059456677406, guid: 7eb345848e1dca24fabbe38a91d4a337,
+    type: 2}
+  m_PrefabInternal: {fileID: 137680626}
+--- !u!114 &2134759838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134759837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823399344f832c746b6a46885f40af81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Max_Velocity: 15
+  velocity: 50

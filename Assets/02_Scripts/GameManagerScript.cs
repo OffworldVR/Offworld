@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +24,7 @@ public class GameManagerScript : MonoBehaviour {
 	private bool go = false;
 	private float startTime;
 
-	void Start () {
+	void Awake () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
 		foreach(GameObject g in allHoops){
 			HoopScript h = g.GetComponent<HoopScript>();
@@ -58,7 +58,13 @@ public class GameManagerScript : MonoBehaviour {
 		return min;
 	}
 
-	private int GetPlayerHoopIndex(int n){
+    public Transform getNextHoop(int n)
+    {
+        return GetHoopWithNum((n+1) % allHoops.Length);
+        //return allHoops[(n + 1) % allHoops.Length];
+    }
+
+    private int GetPlayerHoopIndex(int n){
 		for(var i = 0; i<playerHoops.Count; i++){
 			if(n==playerHoops[i].hoopNum){
 				return i;
@@ -117,7 +123,11 @@ public class GameManagerScript : MonoBehaviour {
 	public void BeginRace(){
 		go = true;
 		startTime = Time.time;
-		GameObject.Find("Player").GetComponent<PlayerScript>().CheckSteering();
+		GameObject p = GameObject.Find("Player");
+		if(p!=null){
+			p.GetComponent<PlayerScript>().CheckSteering();
+		}
+		// GameObject.Find("Player").GetComponent<PlayerScript>().CheckSteering();
 	}
 
 	private void EndGame(){

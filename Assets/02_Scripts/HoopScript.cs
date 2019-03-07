@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +39,32 @@ public class HoopScript : MonoBehaviour {
 					}
 				}
 			}
-		}
+        }
+        else if(c.transform.root.tag=="AI")
+        {
+            float d = (c.transform.position - transform.position).magnitude;
+            if (d < 40)
+            {
+                c.transform.root.GetComponent<AI>().HitHoop(hoopNum);
+                if (d < 25)
+                {
+                    if (forPlayer && hasItem)
+                    {
+                        //gm.HitInner(hoopNum);
+                    }
+                    else
+                    {
+                        //gm.HitOuter(hoopNum);
+                    }
+                    // Debug.Log("hit inner");
+                }
+                else
+                {
+                   // gm.HitOuter(hoopNum);
+                    // Debug.Log("hit outer");
+                }
+            }
+        }
+
 	}
 }
