@@ -1279,7 +1279,7 @@ Prefab:
     - target: {fileID: 114911011895912524, guid: 320094e3fd24ef4449a738ddb8448ec4,
         type: 2}
       propertyPath: forPlayer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114911011895912524, guid: 320094e3fd24ef4449a738ddb8448ec4,
         type: 2}
@@ -22041,7 +22041,7 @@ Prefab:
     - target: {fileID: 114911011895912524, guid: 320094e3fd24ef4449a738ddb8448ec4,
         type: 2}
       propertyPath: forPlayer
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114911011895912524, guid: 320094e3fd24ef4449a738ddb8448ec4,
         type: 2}
