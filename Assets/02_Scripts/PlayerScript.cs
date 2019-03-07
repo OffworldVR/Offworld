@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
-//using TMPro;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour {
 
 		  //True when left right hand enters rightHandle
-		bool leftHandleIsTriggered = false;
+	    bool leftHandleIsTriggered = false;
 		bool rightHandleIsTriggered = false;
 
         //True when trigger is pressed
@@ -47,8 +47,7 @@ public class PlayerScript : MonoBehaviour {
 		//Changed by LH_Listener to 0 if force is positive or 1 if negative
 		public int LH_Grip_Pressed = 0;
 		public int LH_Trigger_Pressed = 0;
-        public int ActiveItem = -1;
-        private int activeItem;
+        
 
 
 
@@ -58,7 +57,8 @@ public class PlayerScript : MonoBehaviour {
 
     void Start () {
 
-        activeItem = items.ActiveItem;
+        
+
         //Set original wheel Position
         wheelStartPos = wheel.position;
 
@@ -70,7 +70,6 @@ public class PlayerScript : MonoBehaviour {
 
     void Update ()
     {
-			//delegate void ActiveItem();
 			//ActiveItem activeItem = GameObject.GetComponent<itemsScript>().activeItem;
 
         if (canSteer)
@@ -82,7 +81,7 @@ public class PlayerScript : MonoBehaviour {
 
 
             //Activate which ever item is enabled
-            activateItem();
+            GetComponent<items>().ActivateItem();
         }
 
         Accelerate();
@@ -90,25 +89,26 @@ public class PlayerScript : MonoBehaviour {
     }
 
 
-
+    /*
 
     private void activateItem()
     {
-        Debug.Log("activateItemFunctionInPlaerscrpt");
+        Debug.Log("activateItem Function In Player Script");
 
-        if (activeItem == 0)
+        if (items.ActiveItem == 0)
         {
             return;
         }
-        else if (activeItem == 1)
+        else if (items.ActiveItem == 1)
         {
-            gameObject.GetComponent<lasers>().activateItem();
+            GetComponent<lasers>().activateItem();
         }
-        else if (activeItem == 2)
+        else if (items.ActiveItem == 2)
         {
 
         }
     }
+    */
 
     private void move()
     {

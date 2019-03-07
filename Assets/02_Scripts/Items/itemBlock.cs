@@ -18,14 +18,14 @@ public class itemBlock : MonoBehaviour {
     void OnTriggerEnter(Collider c)
     {
 
-        if (c.transform.tag == "Player")
+        if (c.transform.tag == "Player"|| c.transform.tag == "AI")
         {
             //Make block invisible
 			Debug.Log("ITEM BLOCK ENTERED");
             gameObject.GetComponent<Renderer>().enabled = false;
 
             //Call itemSelector
-            items.ItemSelector();
+            c.GetComponent<items>().ItemSelector();
         }
 
 

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lasers : items {
+public class lasers : items
+{
 
     public GameObject laser1;
     public GameObject laser2;
+
+ 
     // Use this for initialization
     void Start ()
     {
@@ -19,6 +22,7 @@ public class lasers : items {
         Debug.Log("Laser Activated");
         if (PlayerScript.leftTriggerIsTriggered)
         {
+            Debug.Log("Laser Fired");
             laser1.SetActive(true);
             laser2.SetActive(true);
         }

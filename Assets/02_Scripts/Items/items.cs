@@ -17,71 +17,80 @@ using UnityEngine;
 
 public class items : MonoBehaviour {
 
-    public static int ActiveItem = 0;
 
+    public GameObject laser1;
+    public GameObject laser2;
     private static PlayerScript playerScript;
-
-    //private List<GameObject> lasers = new List<GameObject>();
-
-    private static int totalItems = 1;
-
     public static items instance;
 
+    //Time the player can use the laser after the item is activated
+    public const int laserActiveTime = 4;
+
+    //Number of Items the player can get
+    private static int totalItems = 1;
+
+    //Current active Item
+    public static int ActiveItem = 0;
+    //Item 0 = None
+    //Item 1 = Laser
+    //Item 2 = 
     private void Awake()
     {
-        instance = this;
+        //instance = this;
     }
+
     void Start()
     {
 
-        //Get player script from root
 
 
-        //Get lasers GameObjects
-        //transform.Find("Laser1").gameObject.SetActive(false);
-        //transform.Find("Laser1").gameObject.SetActive(false);
-    }
+}
 
 
 
-
-
-
-
-
-    public static void ItemSelector()
+public void ItemSelector()
     {
         //Set active item to the number in the list
         //activeItem = Random.Range(1, totalItems);
 
         ActiveItem = 1;
 
+        //Deactive the Laser in 4 seconds
         if(ActiveItem == 1)
         {
-            instance.Invoke("deactivateItem", 4);
+            Invoke("deactivateItem", laserActiveTime);
         }
   
     }
 
-    public void Laser()
+    public void ActivateItem()
     {
+        if(ActiveItem == 1)
+        {
+            laserController();
+        }
+    
+    }
+    
+
+    public void laserController()
+    {
+        Debug.Log("Laser Activated");
         if (PlayerScript.leftTriggerIsTriggered)
         {
-          transform.Find("Laser1").gameObject.SetActive(true);
-          transform.Find("Laser1").gameObject.SetActive(true);
-
+            Debug.Log("Laser Fired");
+            laser1.SetActive(true);
+            laser2.SetActive(true);
         }
         else
         {
-          transform.Find("Laser1").gameObject.SetActive(false);
-          transform.Find("Laser1").gameObject.SetActive(false);
+            laser1.SetActive(false);
+            laser2.SetActive(false);
         }
     }
 
-    //Set delegate to an empty function
     private void deactivateItem()
     {
-        //activeItem = ()=>{ };
         ActiveItem = 0;
     }
 }
