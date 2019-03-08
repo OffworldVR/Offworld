@@ -5,10 +5,16 @@ using UnityEngine;
 abstract public class baseItem : MonoBehaviour {
 
     public float DAMAGE = 0;
+    public GameObject parentShip = null;
 
     virtual protected bool CheckIsShip(Collider other)
     {
         return (other.tag == "Player" || other.tag == "Ship");
+    }
+
+    virtual protected bool CheckIsSelf(Collider other)
+    {
+        return (parentShip == other.gameObject);
     }
 
     virtual protected void DamageShip(Collider other)

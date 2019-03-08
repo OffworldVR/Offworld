@@ -6,11 +6,8 @@ public class asteroidDrillController : baseItem {
     
     public float DURATION;
     public float SPEED_MODIFIER;
-    private GameObject parentShip;
 
 	void Start () {
-        //be sure to instantiate as a child
-        parentShip = transform.parent.gameObject;
 
         // TODO: make ship invincible
         // possible code

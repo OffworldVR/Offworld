@@ -25,7 +25,7 @@ public class itemBlock : MonoBehaviour {
             gameObject.GetComponent<Renderer>().enabled = false;
 
             //Call itemSelector
-            c.GetComponent<items>().ItemSelector();
+            c.GetComponent<itemPrefabSpawnController>().ItemSelector();
         }
 
 

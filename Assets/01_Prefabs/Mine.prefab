@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DAMAGE: 0
-  PRIME_DELAY: 0
-  EXPLOSION_DURATION: 0
+  PRIME_DELAY: 5
+  EXPLOSION_DURATION: 5
 --- !u!136 &136463912286680600
 CapsuleCollider:
   m_ObjectHideFlags: 1

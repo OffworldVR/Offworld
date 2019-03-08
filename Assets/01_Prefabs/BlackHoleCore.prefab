@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DAMAGE: 0
+  parentShip: {fileID: 0}
   BLACK_HOLE_FORCE_MULTIPLIER: 1
   BLACK_HOLE_STRENGTH: 0
 --- !u!114 &114520181460308414
@@ -186,9 +187,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DAMAGE: 0
+  parentShip: {fileID: 0}
   DURATION: 5
-  AURA_DELAY: 0
-  TRAVEL_SPEED: 200
+  AURA_DELAY: 2
+  TRAVEL_SPEED: 2
 --- !u!135 &135611628508576964
 SphereCollider:
   m_ObjectHideFlags: 1

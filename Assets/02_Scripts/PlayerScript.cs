@@ -81,7 +81,7 @@ public class PlayerScript : MonoBehaviour {
 
 
             //Activate which ever item is enabled
-            GetComponent<items>().ActivateItem();
+            GetComponent<itemPrefabSpawnController>().ActivateItem();
         }
 
         Accelerate();
