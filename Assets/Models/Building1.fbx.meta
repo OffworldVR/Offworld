@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: 6ea4d8b07a483e84d9b1b5fd7e5c7d84
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: group13
+    100004: group16
+    100006: pasted__pasted__pasted__pTorus1
+    100008: pasted__pasted__pCube2
+    100010: pasted__pasted__pTorus1
+    100012: pasted__pasted__pTorus2
+    100014: pasted__pCube2
+    100016: pasted__pTorus1
+    100018: pasted__pTorus2
+    100020: pCube1
+    100022: pTorus1
+    400000: //RootNode
+    400002: group13
+    400004: group16
+    400006: pasted__pasted__pasted__pTorus1
+    400008: pasted__pasted__pCube2
+    400010: pasted__pasted__pTorus1
+    400012: pasted__pasted__pTorus2
+    400014: pasted__pCube2
+    400016: pasted__pTorus1
+    400018: pasted__pTorus2
+    400020: pCube1
+    400022: pTorus1
+    2100000: lambert4
+    2100002: lambert2
+    2100004: lambert5
+    2100006: lambert3
+    2300000: group13
+    2300002: pasted__pasted__pasted__pTorus1
+    2300004: pasted__pasted__pCube2
+    2300006: pasted__pasted__pTorus1
+    2300008: pasted__pasted__pTorus2
+    2300010: pasted__pCube2
+    2300012: pasted__pTorus1
+    2300014: pasted__pTorus2
+    2300016: pCube1
+    2300018: pTorus1
+    3300000: group13
+    3300002: pasted__pasted__pasted__pTorus1
+    3300004: pasted__pasted__pCube2
+    3300006: pasted__pasted__pTorus1
+    3300008: pasted__pasted__pTorus2
+    3300010: pasted__pCube2
+    3300012: pasted__pTorus1
+    3300014: pasted__pTorus2
+    3300016: pCube1
+    3300018: pTorus1
+    4300000: pasted__pTorus2
+    4300002: pasted__pasted__pTorus1
+    4300004: pasted__pTorus1
+    4300006: pasted__pasted__pTorus2
+    4300008: pTorus1
+    4300010: pCube1
+    4300012: pasted__pasted__pasted__pTorus1
+    4300014: group13
+    4300016: pasted__pasted__pCube2
+    4300018: pasted__pCube2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert2
+    second: {fileID: 2100000, guid: 27436bbb54bdec4478c08db41ac11755, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert3
+    second: {fileID: 2100000, guid: 31b276b0d25afff429a2248fb9d52d9c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: a54c3ed9c3b727643a01b2e4e71525b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert5
+    second: {fileID: 2100000, guid: 924a54eee191b7f4595acbc056843c76, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
