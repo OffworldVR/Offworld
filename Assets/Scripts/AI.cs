@@ -12,6 +12,7 @@ public class AI : MonoBehaviour {
 
     private GameManagerScript gm;
     private Transform hoop;
+    private float caf=0f;
 
     //set RB's, Start Position, Hoops and GM
     void Start () {
@@ -30,7 +31,18 @@ public class AI : MonoBehaviour {
         //smooth out angles, look at the negative angles so does not need to do full revolution but instead can stay upside down or turn other direction
         //add random vetor later to add unpredicatabiltiy and make more unique movement
 
-      transform.RotateAround(transform.position, transform.forward, Time.deltaTime*af);
+      if(af<-90f){
+        af += 180f;
+      }else if(af>90f){
+        af -= 180f;
+      }
+
+      if(af<caf){
+        caf -= Mathf.Min(10, caf-af);
+      }else{
+        caf += Mathf.Min(10, af-caf);
+      }
+      transform.RotateAround(transform.position, transform.forward, Time.deltaTime*caf);
 
       float ar = Vector3.SignedAngle( transform.forward,delta, transform.right);
 
