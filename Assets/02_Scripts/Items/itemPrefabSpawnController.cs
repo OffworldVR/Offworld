@@ -103,7 +103,6 @@ public void ItemSelector()
 
 
 
-
     public void laserController()
     {
         if (PlayerScript.leftTriggerIsTriggered)
@@ -175,6 +174,8 @@ public void ItemSelector()
     }
     private void deactivateItem()
     {
+        laser1.SetActive(false);
+        laser2.SetActive(false);
         ActiveItem = 0;
     }
 }
