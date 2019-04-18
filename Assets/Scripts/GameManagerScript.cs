@@ -43,7 +43,7 @@ public class GameManagerScript : MonoBehaviour {
 		}
 	}
 
-	private int FindNextHoop(int n){
+	public int FindNextHoop(int n){
 		if(n==allHoops.Length-1){
 			return 0;
 		}
@@ -73,7 +73,7 @@ public class GameManagerScript : MonoBehaviour {
 		return -1;
 	}
 
-	private Transform GetHoopWithNum(int n){
+	public Transform GetHoopWithNum(int n){
 		foreach(GameObject g in allHoops){
 			if(g.GetComponent<HoopScript>().hoopNum==n){
 				return g.transform;
@@ -124,6 +124,10 @@ public class GameManagerScript : MonoBehaviour {
 		go = true;
 		startTime = Time.time;
 		GameObject p = GameObject.Find("Player");
+		GameObject[] ais = GameObject.FindGameObjectsWithTag("AI");
+		foreach(GameObject ai in ais){
+			ai.GetComponent<AI>().raceHasStarted = true;
+		}
 		if(p!=null){
 			p.GetComponent<PlayerScript>().CheckSteering();
 		}
