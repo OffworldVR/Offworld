@@ -7,16 +7,16 @@ using TMPro;
 public class PlayerScript : MonoBehaviour {
 
 		  //True when left right hand enters rightHandle
-		bool leftHandleIsTriggered = false;
+	    bool leftHandleIsTriggered = false;
 		bool rightHandleIsTriggered = false;
 
         //True when trigger is pressed
-		public bool leftTriggerIsTriggered = false;
-		public bool rightTriggerIsTriggered = false;
+		public static bool leftTriggerIsTriggered = false;
+		public static bool rightTriggerIsTriggered = false;
 
 		//True when grib is pressed.
-		public bool leftGripIsTriggered = false;
-		public bool rightGripIsTriggered = false;
+		public static bool leftGripIsTriggered = false;
+		public static bool rightGripIsTriggered = false;
 
 		//True when all conditions for steering are met
 		bool canSteer = false;
@@ -47,25 +47,30 @@ public class PlayerScript : MonoBehaviour {
 		//Changed by LH_Listener to 0 if force is positive or 1 if negative
 		public int LH_Grip_Pressed = 0;
 		public int LH_Trigger_Pressed = 0;
-        public int ActiveItem = -1;
-    
         
-         
+
+
+
 
         private GameManagerScript gm;
 
+
     void Start () {
+
+        
+
         //Set original wheel Position
         wheelStartPos = wheel.position;
 
-				rb = GetComponent<Rigidbody>();
-				gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-
+		rb = GetComponent<Rigidbody>();
+		gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+		//itemsScript = GameObject.GetComponent<itemsScript>();
 
     }
 
     void Update ()
     {
+			//ActiveItem activeItem = GameObject.GetComponent<itemsScript>().activeItem;
 
         if (canSteer)
         {
@@ -76,16 +81,34 @@ public class PlayerScript : MonoBehaviour {
 
 
             //Activate which ever item is enabled
-
-            //GameObject.GetComponent<itemsScript>().activeItem();
+            GetComponent<itemPrefabSpawnController>().ActivateItem();
         }
 
         Accelerate();
         move();
     }
 
- 
 
+    /*
+
+    private void activateItem()
+    {
+        Debug.Log("activateItem Function In Player Script");
+
+        if (items.ActiveItem == 0)
+        {
+            return;
+        }
+        else if (items.ActiveItem == 1)
+        {
+            GetComponent<lasers>().activateItem();
+        }
+        else if (items.ActiveItem == 2)
+        {
+
+        }
+    }
+    */
 
     private void move()
     {
