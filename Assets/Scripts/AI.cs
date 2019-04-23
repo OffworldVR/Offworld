@@ -67,6 +67,6 @@ public class AI : MonoBehaviour {
             hoop = gm.GetHoopWithNum(gm.FindNextHoop(hoopNum));
             currHoop = hoop.GetComponent<HoopScript>().hoopNum;
         }
-        Debug.Log(hoopNum);
+        //Debug.Log(hoopNum);
     }
 }

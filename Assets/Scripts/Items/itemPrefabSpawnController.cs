@@ -140,7 +140,7 @@ public void ItemSelector()
             Debug.Log("Black Hole Bomb Fired");
             GameObject temp = Instantiate(blackHoleBombPrefab, transform.position, transform.rotation);
             //Add parentShip property to the instantiated Item
-            temp.GetComponent<baseItem>().parentShip = gameObject;
+            //temp.GetComponent<baseItem>().parentShip = gameObject;
 
             
             deactivateItem();
@@ -152,8 +152,10 @@ public void ItemSelector()
         {
             Debug.Log("Missle Fired");
             GameObject temp = Instantiate(misslePrefab, transform.position, transform.rotation);
+            temp.AddComponent<Rigidbody>();
+            temp.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity*1.5f; 
             //Add parentShip property to the instantiated Item
-            temp.GetComponent<baseItem>().parentShip = gameObject;
+            //temp.GetComponent<baseItem>().parentShip = gameObject;
 
 
             deactivateItem();
