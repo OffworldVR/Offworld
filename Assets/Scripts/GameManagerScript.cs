@@ -12,7 +12,7 @@ public class GameManagerScript : MonoBehaviour {
 	public Material nextOut1;
 	public Material nextOut2;
 	public Material passed;
-
+	public GameObject[] playerShipPrefabs;
 
 	private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
@@ -26,6 +26,21 @@ public class GameManagerScript : MonoBehaviour {
 
 	void Awake () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
+
+		//TODO: GET SELECTED SHIPH VALUE FROM PLAYER PREFS
+		int shipValue = 1;
+		GameObject ship = Instantiate(playerShipPrefabs[shipValue]) as GameObject;
+		GameObject player = GameObject.Find("Player");
+		ship.transform.position += player.transform.position;
+		ship.transform.parent = player.transform;
+		int index = 0;
+		foreach(Collider c in player.GetComponents<BoxCollider>()){
+			if(index!=shipValue){
+				c.enabled = false;
+			}
+			index++;
+		}
+
 		foreach(GameObject g in allHoops){
 			HoopScript h = g.GetComponent<HoopScript>();
 			if(h.forPlayer){
