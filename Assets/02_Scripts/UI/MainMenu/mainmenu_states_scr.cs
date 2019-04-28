@@ -8,9 +8,15 @@ public class mainmenu_states_scr : MonoBehaviour {
     enum MenuType { MENU_MAIN, MENU_OPTIONS, MENU_SHIP, MENU_MAP, MENU_INTRO };
     MenuType currentMenu;
     bool[] axis_moving;
+    RectTransform[] text_positions;
 	void Start () {
         currentMenu = MenuType.MENU_INTRO;
         axis_moving = new bool[] {false, false, false, false};
+        text_positions = new RectTransform[13];
+        for( int i = 0; i < 13; i++ )
+        {
+            text_positions[i] = transform.GetChild(0).GetChild(i).GetComponent<RectTransform>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -21,14 +27,26 @@ public class mainmenu_states_scr : MonoBehaviour {
     void Up()
     {
         Debug.Log("Up");
+        switch(currentMenu)
+        {
+
+        }
     }
     void Down()
     {
         Debug.Log("Down");
+        switch (currentMenu)
+        {
+
+        }
     }
     void Press()
     {
         Debug.Log("Press");
+        switch (currentMenu)
+        {
+
+        }
     }
 
     void UpdateControls()
