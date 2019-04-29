@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class mainmenu_states_scr : MonoBehaviour {
-
 
     // Enums
     enum MenuType { MENU_MAIN, MENU_OPTIONS, MENU_SHIP, MENU_MAP, MENU_INTRO };
@@ -40,6 +42,10 @@ public class mainmenu_states_scr : MonoBehaviour {
     List<LerpData> lerpsNeeded;
     public float lerpSpeed;
 
+    // Options
+    bool inOption;
+    bool startedHolding;
+    float startHoldTime;
 
     void Start () {
         menus = new GameObject[5];
@@ -63,19 +69,27 @@ public class mainmenu_states_scr : MonoBehaviour {
         currentStage = 0;
 
         lerpsNeeded = new List<LerpData>();
-	}
+        
+        PlayerPrefs.SetInt("sfxVolume", 80);
+        PlayerPrefs.SetInt("musicVolume", 80);
+        inOption = false;
+        startedHolding = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
         UpdateControls();
         UpdateLerp();
+        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("sfxVolume").ToString());
+        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("musicVolume").ToString());
     }
 
     void Up()
     {
         Debug.Log("Up");
+        // Correct Menus
         int startIndex;
-        if (currentMenu != MenuType.MENU_INTRO)
+        if (currentMenu != MenuType.MENU_INTRO && !inOption)
         {
             startIndex = FindPosition(menus[(int)currentMenu].transform.GetChild(0).position);
             Debug.Log(startIndex);
@@ -145,18 +159,42 @@ public class mainmenu_states_scr : MonoBehaviour {
 
             }
         }
-        else
+        else if(currentMenu == MenuType.MENU_INTRO)
         {
             currentMenu = MenuType.MENU_MAIN;
             menus[(int)MenuType.MENU_INTRO].SetActive(false);
             menus[(int)MenuType.MENU_MAIN].SetActive(true);
         }
+        // Showing stuff in the circle
+        if(currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(true);
+        }
+        else if(currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_SOUND)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
+        }
+        else if(currentMenu == MenuType.MENU_OPTIONS)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
+        }
     }
     void Down()
     {
         Debug.Log("Down");
+        // Correct Menus
         int startIndex;
-        if (currentMenu != MenuType.MENU_INTRO)
+        // Showing stuff in the circle
+        if (currentMenu != MenuType.MENU_INTRO && !inOption)
         {
             startIndex = FindPosition(menus[(int)currentMenu].transform.GetChild(0).position);
             switch (currentMenu)
@@ -223,109 +261,213 @@ public class mainmenu_states_scr : MonoBehaviour {
                     break;
             }
         }
+        else if (currentMenu == MenuType.MENU_INTRO)
+        {
+            currentMenu = MenuType.MENU_MAIN;
+            menus[(int)MenuType.MENU_INTRO].SetActive(false);
+            menus[(int)MenuType.MENU_MAIN].SetActive(true);
+        }
+        if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(true);
+        }
+        else if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_SOUND)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(true);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
+        }
+        else if (currentMenu == MenuType.MENU_OPTIONS)
+        {
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
+            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
+        }
     }
     void Press()
     {
         Debug.Log("Press");
-        switch (currentMenu)
+        if (!inOption)
         {
-            case MenuType.MENU_INTRO:
-                currentMenu = MenuType.MENU_MAIN;
-                menus[(int)MenuType.MENU_INTRO].SetActive(false);
-                menus[(int)MenuType.MENU_MAIN].SetActive(true);
-                break;
-            case MenuType.MENU_MAIN:
-                switch(currentMain)
+            switch (currentMenu)
+            {
+                case MenuType.MENU_INTRO:
+                    currentMenu = MenuType.MENU_MAIN;
+                    menus[(int)MenuType.MENU_INTRO].SetActive(false);
+                    menus[(int)MenuType.MENU_MAIN].SetActive(true);
+                    break;
+                case MenuType.MENU_MAIN:
+                    switch (currentMain)
+                    {
+                        case MainChoice.MAIN_PLAY:
+                            currentMenu = MenuType.MENU_MAP;
+                            menus[(int)MenuType.MENU_MAIN].SetActive(false);
+                            menus[(int)MenuType.MENU_MAP].SetActive(true);
+                            break;
+                        case MainChoice.MAIN_OPTIONS:
+                            currentMenu = MenuType.MENU_OPTIONS;
+                            menus[(int)MenuType.MENU_MAIN].SetActive(false);
+                            menus[(int)MenuType.MENU_OPTIONS].SetActive(true);
+                            break;
+                        case MainChoice.MAIN_QUIT:
+                            Application.Quit();
+                            break;
+                    }
+                    break;
+                case MenuType.MENU_MAP:
+                    switch (currentStage)
+                    {
+                        case StageChoice.STAGE_BACK:
+                            menus[(int)MenuType.MENU_MAP].SetActive(false);
+                            menus[(int)MenuType.MENU_MAIN].SetActive(true);
+                            currentMenu = MenuType.MENU_MAIN;
+                            break;
+                        case StageChoice.STAGE_SPACE:
+                            PlayerPrefs.SetInt("map", 0);
+                            menus[(int)MenuType.MENU_MAP].SetActive(false);
+                            menus[(int)MenuType.MENU_SHIP].SetActive(true);
+                            currentMenu = MenuType.MENU_SHIP;
+                            break;
+                        case StageChoice.STAGE_CITY:
+                            PlayerPrefs.SetInt("map", 1);
+                            menus[(int)MenuType.MENU_MAP].SetActive(false);
+                            menus[(int)MenuType.MENU_SHIP].SetActive(true);
+                            currentMenu = MenuType.MENU_SHIP;
+                            break;
+                        case StageChoice.STAGE_UNDERWATER:
+                            PlayerPrefs.SetInt("map", 2);
+                            menus[(int)MenuType.MENU_MAP].SetActive(false);
+                            menus[(int)MenuType.MENU_SHIP].SetActive(true);
+                            currentMenu = MenuType.MENU_SHIP;
+                            break;
+                    }
+                    break;
+                case MenuType.MENU_SHIP:
+                    switch (currentShip)
+                    {
+                        case ShipChoice.SHIP_BACK:
+                            menus[(int)MenuType.MENU_SHIP].SetActive(false);
+                            menus[(int)MenuType.MENU_MAP].SetActive(true);
+                            currentMenu = MenuType.MENU_MAP;
+                            break;
+                        case ShipChoice.SHIP_OFFWORLD:
+                            PlayerPrefs.SetInt("ship", 0);
+                            ChangeScene();
+                            break;
+                        case ShipChoice.SHIP_XWING:
+                            PlayerPrefs.SetInt("ship", 1);
+                            ChangeScene();
+                            break;
+                        case ShipChoice.SHIP_VERTICAL:
+                            PlayerPrefs.SetInt("ship", 2);
+                            ChangeScene();
+                            break;
+                        case ShipChoice.SHIP_UFO:
+                            PlayerPrefs.SetInt("ship", 3);
+                            ChangeScene();
+                            break;
+                        case ShipChoice.SHIP_PODRACER:
+                            PlayerPrefs.SetInt("ship", 4);
+                            ChangeScene();
+                            break;
+                    }
+                    break;
+                case MenuType.MENU_OPTIONS:
+                    switch (currentOption)
+                    {
+                        case OptionsChoice.OPTIONS_BACK:
+                            menus[(int)MenuType.MENU_OPTIONS].SetActive(false);
+                            menus[(int)MenuType.MENU_MAIN].SetActive(true);
+                            currentMenu = MenuType.MENU_MAIN;
+                            break;
+                        case OptionsChoice.OPTIONS_SOUND:
+                            inOption = true;
+                            break;
+                        case OptionsChoice.OPTIONS_MUSIC:
+                            inOption = true;
+                            break;
+                        case OptionsChoice.OPTIONS_CALLIBRATE:
+                            InputTracking.Recenter();
+                            break;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            inOption = false;
+        }
+    }
+
+    void HoldRight()
+    {
+        if(!startedHolding)
+        {
+            startHoldTime = Time.time;
+        }
+        startedHolding = true;
+        if(inOption)
+        {
+            if(currentOption == OptionsChoice.OPTIONS_MUSIC)
+            {
+                if (PlayerPrefs.GetInt("musicVolume") < 100)
                 {
-                    case MainChoice.MAIN_PLAY:
-                        currentMenu = MenuType.MENU_MAP;
-                        menus[(int)MenuType.MENU_MAIN].SetActive(false);
-                        menus[(int)MenuType.MENU_MAP].SetActive(true);
-                        break;
-                    case MainChoice.MAIN_OPTIONS:
-                        currentMenu = MenuType.MENU_OPTIONS;
-                        menus[(int)MenuType.MENU_MAIN].SetActive(false);
-                        menus[(int)MenuType.MENU_OPTIONS].SetActive(true); 
-                        break;
-                    case MainChoice.MAIN_QUIT:
-                        Application.Quit();
-                        break;
+                    if (Time.time - startHoldTime > 0.05f)
+                    {
+                        startHoldTime = Time.time;
+                        PlayerPrefs.SetInt("musicVolume", PlayerPrefs.GetInt("musicVolume") + 1);
+                    }
                 }
-                break;
-            case MenuType.MENU_MAP:
-                switch(currentStage)
+            }
+            else if (currentOption == OptionsChoice.OPTIONS_SOUND)
+            {
+                if (PlayerPrefs.GetInt("sfxVolume") < 100)
                 {
-                    case StageChoice.STAGE_BACK:
-                        menus[(int)MenuType.MENU_MAP].SetActive(false);
-                        menus[(int)MenuType.MENU_MAIN].SetActive(true);
-                        currentMenu = MenuType.MENU_MAIN;
-                        break;
-                    case StageChoice.STAGE_SPACE:
-                        PlayerPrefs.SetInt("map", 0);
-                        menus[(int)MenuType.MENU_MAP].SetActive(false);
-                        menus[(int)MenuType.MENU_SHIP].SetActive(true);
-                        currentMenu = MenuType.MENU_SHIP;
-                        break;
-                    case StageChoice.STAGE_CITY:
-                        PlayerPrefs.SetInt("map", 1);
-                        menus[(int)MenuType.MENU_MAP].SetActive(false);
-                        menus[(int)MenuType.MENU_SHIP].SetActive(true);
-                        currentMenu = MenuType.MENU_SHIP;
-                        break;
-                    case StageChoice.STAGE_UNDERWATER:
-                        PlayerPrefs.SetInt("map", 2);
-                        menus[(int)MenuType.MENU_MAP].SetActive(false);
-                        menus[(int)MenuType.MENU_SHIP].SetActive(true);
-                        currentMenu = MenuType.MENU_SHIP;
-                        break;
+                    if (Time.time - startHoldTime > 0.05f)
+                    {
+                        startHoldTime = Time.time;
+                        PlayerPrefs.SetInt("sfxVolume", PlayerPrefs.GetInt("sfxVolume") + 1);
+                    }
                 }
-                break;
-            case MenuType.MENU_SHIP:
-                switch(currentShip)
+            }
+        }
+    }
+    void HoldLeft()
+    {
+        if (!startedHolding)
+        {
+            startHoldTime = Time.time;
+        }
+        startedHolding = true;
+        if (inOption)
+        {
+            if (currentOption == OptionsChoice.OPTIONS_MUSIC)
+            {
+                if (PlayerPrefs.GetInt("musicVolume") > 0)
                 {
-                    case ShipChoice.SHIP_BACK:
-                        menus[(int)MenuType.MENU_SHIP].SetActive(false);
-                        menus[(int)MenuType.MENU_MAP].SetActive(true);
-                        currentMenu = MenuType.MENU_MAP;
-                        break;
-                    case ShipChoice.SHIP_OFFWORLD:
-                        PlayerPrefs.SetInt("ship", 0);
-                        ChangeScene();
-                        break;
-                    case ShipChoice.SHIP_XWING:
-                        PlayerPrefs.SetInt("ship", 1);
-                        ChangeScene();
-                        break;
-                    case ShipChoice.SHIP_VERTICAL:
-                        PlayerPrefs.SetInt("ship", 2);
-                        ChangeScene();
-                        break;
-                    case ShipChoice.SHIP_UFO:
-                        PlayerPrefs.SetInt("ship", 3);
-                        ChangeScene();
-                        break;
-                    case ShipChoice.SHIP_PODRACER:
-                        PlayerPrefs.SetInt("ship", 4);
-                        ChangeScene();
-                        break;
+                    if (Time.time - startHoldTime > 0.05f)
+                    {
+                        startHoldTime = Time.time;
+                        PlayerPrefs.SetInt("musicVolume", PlayerPrefs.GetInt("musicVolume") - 1);
+                    }
                 }
-                break;
-            case MenuType.MENU_OPTIONS:
-                switch(currentOption)
+            }
+            else if (currentOption == OptionsChoice.OPTIONS_SOUND)
+            {
+                if (PlayerPrefs.GetInt("sfxVolume") > 0)
                 {
-                    case OptionsChoice.OPTIONS_BACK:
-                        menus[(int)MenuType.MENU_OPTIONS].SetActive(false);
-                        menus[(int)MenuType.MENU_MAIN].SetActive(true);
-                        currentMenu = MenuType.MENU_MAIN;
-                        break;
-                    case OptionsChoice.OPTIONS_SOUND:
-                        break;
-                    case OptionsChoice.OPTIONS_MUSIC:
-                        break;
-                    case OptionsChoice.OPTIONS_CALLIBRATE:
-                        break;
+                    if (Time.time - startHoldTime > 0.05f)
+                    {
+                        startHoldTime = Time.time;
+                        PlayerPrefs.SetInt("sfxVolume", PlayerPrefs.GetInt("sfxVolume") - 1);
+                    }
                 }
-                break;
+            }
         }
     }
 
@@ -364,10 +506,22 @@ public class mainmenu_states_scr : MonoBehaviour {
             axis_moving[3] = true;
             Down();
         }
+        
         // Press button
         if (OVRInput.GetDown(OVRInput.Button.One) || OVRInput.GetDown(OVRInput.Button.Three))
         {
             Press();
+        }
+
+        // Right Hold
+        if(OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x > 0 || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x > 0)
+        {
+            HoldRight();
+        }
+        // Left Hold
+        if (OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x < 0 || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x < 0)
+        {
+            HoldLeft();
         }
 
         // Reset axis_moving
@@ -386,6 +540,10 @@ public class mainmenu_states_scr : MonoBehaviour {
         if (OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y >= 0 && axis_moving[3])
         {
             axis_moving[3] = false;
+        }
+        if (!(OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x < 0 || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x < 0 || OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x > 0 || OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x > 0))
+        {
+            startedHolding = false;
         }
     }
     void UpdateLerp()
@@ -406,6 +564,11 @@ public class mainmenu_states_scr : MonoBehaviour {
 
     void ChangeScene()
     {
-        Debug.Log("Change scene");
+        switch(PlayerPrefs.GetInt("map"))
+        {
+            case 0:
+                SceneManager.LoadScene("Proxima");
+                break;
+        }
     }
 }
