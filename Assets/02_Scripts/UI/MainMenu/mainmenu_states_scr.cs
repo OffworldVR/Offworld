@@ -82,6 +82,7 @@ public class mainmenu_states_scr : MonoBehaviour {
         UpdateLerp();
         transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("sfxVolume").ToString());
         transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("musicVolume").ToString());
+        Debug.Log(inOption);
     }
 
     void Up()
