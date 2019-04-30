@@ -96,6 +96,7 @@ public void ItemSelector()
         {
             asteroidDrillController();
         }
+        return;
     }
     
 
@@ -158,7 +159,8 @@ public void ItemSelector()
             //Add parentShip property to the instantiated Item
             //temp.GetComponent<baseItem>().parentShip = gameObject;
 
-
+            //replace this with AI script for pathfinding and when get velocity of ship double or even triple it 
+            //after that then have it lock onto a ship when in close proximity
             deactivateItem();
         }
     }
