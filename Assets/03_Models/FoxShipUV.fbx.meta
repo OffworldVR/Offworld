@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 3ecffd217d01c534e922bbc7a269b09c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: cockpit
+    100002: flap01_left
+    100004: flap01_right
+    100006: flap_b_left
+    100008: flap_b_right
+    100010: flap_t__left
+    100012: flap_t_right
+    100014: flaps
+    100016: //RootNode
+    100018: wing_left
+    100020: wing_right
+    100022: wingConnect_left
+    100024: wingConnect_right
+    400000: cockpit
+    400002: flap01_left
+    400004: flap01_right
+    400006: flap_b_left
+    400008: flap_b_right
+    400010: flap_t__left
+    400012: flap_t_right
+    400014: flaps
+    400016: //RootNode
+    400018: wing_left
+    400020: wing_right
+    400022: wingConnect_left
+    400024: wingConnect_right
+    2100000: pasted__anisotropic2
+    2100002: pasted__anisotropic1
+    2100004: lambert3
+    2100006: lambert2
+    2100008: pasted__pasted__lambert5
+    2100010: lambert5
+    2100012: pasted__lambert6
+    2100014: surfaceShader1
+    2100016: anisotropic1
+    2300000: cockpit
+    2300002: flap01_left
+    2300004: flap01_right
+    2300006: flap_b_left
+    2300008: flap_b_right
+    2300010: flap_t__left
+    2300012: flap_t_right
+    2300014: wing_left
+    2300016: wing_right
+    2300018: wingConnect_left
+    2300020: wingConnect_right
+    3300000: cockpit
+    3300002: flap01_left
+    3300004: flap01_right
+    3300006: flap_b_left
+    3300008: flap_b_right
+    3300010: flap_t__left
+    3300012: flap_t_right
+    3300014: wing_left
+    3300016: wing_right
+    3300018: wingConnect_left
+    3300020: wingConnect_right
+    4300000: cockpit
+    4300002: flap01_left
+    4300004: flap01_right
+    4300006: flap_b_left
+    4300008: flap_b_right
+    4300010: flap_t__left
+    4300012: flap_t_right
+    4300014: wing_left
+    4300016: wing_right
+    4300018: wingConnect_left
+    4300020: wingConnect_right
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
