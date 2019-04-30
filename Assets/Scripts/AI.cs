@@ -14,6 +14,7 @@ public class AI : MonoBehaviour {
     public bool raceHasStarted = false;
 
     private GameManagerScript gm;
+    private itemPrefabSpawnController itemController;
     private Transform hoop;
 
     //set RB's, Start Position, Hoops and GM
@@ -21,10 +22,15 @@ public class AI : MonoBehaviour {
         gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         hoop = gm.getNextHoop(currHoop);
         currHoop++;
+        itemController = gameObject.GetComponent<itemPrefabSpawnController>();
     }
-
+    //uppercase GameObject is type
+    //lowercase gameObject is the game object that script is attached to 
 	void Update () {
     if(raceHasStarted){
+
+      itemController.ActivateItem();
+
       Vector3 delta = hoop.position - transform.position;
       Vector3 dxf = Vector3.Cross(delta, transform.forward);
       Vector3 newUp = Vector3.Cross(delta, dxf);

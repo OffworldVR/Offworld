@@ -7,7 +7,8 @@ public class HoopScript : MonoBehaviour {
 	public int hoopNum;
 	public bool forPlayer;
 	public bool hasItem;
-	private GameManagerScript gm;
+    public float itemRefreshTime = 5;
+    private GameManagerScript gm;
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +30,13 @@ public class HoopScript : MonoBehaviour {
 					if(d<25){
 						if(hasItem){
 							gm.HitInner(hoopNum);
-						}else{
+                            itemPrefabSpawnController shipItemController = c.GetComponent<itemPrefabSpawnController>();
+                            if (!shipItemController.hasItem()){
+                                GiveItem(shipItemController);
+                                SleepItem();
+                            }
+                        }
+                        else{
 							gm.HitOuter(hoopNum);
 						}
 						// Debug.Log("hit inner");
@@ -48,23 +55,34 @@ public class HoopScript : MonoBehaviour {
                 c.transform.root.GetComponent<AI>().HitHoop(hoopNum);
                 if (d < 25)
                 {
-                    if (forPlayer && hasItem)
+                    if (hasItem)
                     {
-                        //gm.HitInner(hoopNum);
+                        itemPrefabSpawnController shipItemController = c.GetComponent<itemPrefabSpawnController>();
+                        if (!shipItemController.hasItem())
+                        {
+                            GiveItem(shipItemController);
+                            SleepItem();
+                        }
                     }
-                    else
-                    {
-                        //gm.HitOuter(hoopNum);
-                    }
-                    // Debug.Log("hit inner");
-                }
-                else
-                {
-                   // gm.HitOuter(hoopNum);
-                    // Debug.Log("hit outer");
                 }
             }
         }
 
 	}
+
+
+    private void GiveItem (itemPrefabSpawnController shipItemController)
+    {
+        shipItemController.ItemSelector();
+    }
+
+    private void SleepItem()
+    {
+        hasItem = false;
+        Invoke("AwakeItem", itemRefreshTime);
+    }
+
+    private void AwakeItem() { 
+        hasItem = true; 
+    }
 }

@@ -26,8 +26,8 @@ public class itemPrefabSpawnController : MonoBehaviour {
 
     public GameObject laser1;
     public GameObject laser2;
-    private static PlayerScript playerScript;
-    public static itemPrefabSpawnController instance;
+    private PlayerScript playerScript; //this used to be static if something breaks then dont blame sammy, but instead add back
+    
 
     //Time the player can use the laser after the item is activated
     public const int laserActiveTime = 4;
@@ -105,7 +105,7 @@ public void ItemSelector()
 
     public void laserController()
     {
-        if (PlayerScript.leftTriggerIsTriggered)
+        if (triggeringItem())
         {
             Debug.Log("Laser Fired");
             laser1.SetActive(true);
@@ -116,17 +116,18 @@ public void ItemSelector()
             laser1.SetActive(false);
             laser2.SetActive(false);
         }
+        deactivateItem();
     }
 
     public void mineController()
     {
 
-        if (PlayerScript.leftTriggerIsTriggered)
+        if (triggeringItem())
         {
             Debug.Log("Mine Fired");
             GameObject temp = Instantiate(minePrefab, transform.position, Quaternion.identity);
             //Add parentShip property to the instantiated Item
-            temp.GetComponent<baseItem>().parentShip = gameObject;
+            //temp.GetComponent<baseItem>().parentShip = gameObject;
 
             deactivateItem();
         }
@@ -135,7 +136,7 @@ public void ItemSelector()
 
     public void blackHoleBombController()
     {
-        if (PlayerScript.leftTriggerIsTriggered)
+        if (triggeringItem())
         {
             Debug.Log("Black Hole Bomb Fired");
             GameObject temp = Instantiate(blackHoleBombPrefab, transform.position, transform.rotation);
@@ -148,7 +149,7 @@ public void ItemSelector()
     }
     public void missleController()
     {
-        if (PlayerScript.leftTriggerIsTriggered)
+        if (triggeringItem())
         {
             Debug.Log("Missle Fired");
             GameObject temp = Instantiate(misslePrefab, transform.position, transform.rotation);
@@ -161,23 +162,28 @@ public void ItemSelector()
             deactivateItem();
         }
     }
-    public void asteroidDrillController()
-    {
-        if (PlayerScript.leftTriggerIsTriggered)
-        {
+    public void asteroidDrillController(){
+        if (triggeringItem()){
             Debug.Log("Asteroid Drill ACtivated");
             GameObject temp = Instantiate(asteroidDrillPrefab, (transform.position + (transform.forward * DRILL_OFFSET)), transform.rotation,transform);
             //Add parentShip property to the instantiated Item
-            temp.GetComponent<baseItem>().parentShip = gameObject;
+            //temp.GetComponent<baseItem>().parentShip = gameObject;
 
 
             deactivateItem();
         }
     }
-    private void deactivateItem()
-    {
+    private void deactivateItem(){
         laser1.SetActive(false);
         laser2.SetActive(false);
         ActiveItem = 0;
+    }
+
+    public bool hasItem(){
+        return (ActiveItem != 0);
+    }
+
+    public bool triggeringItem(){
+        return (PlayerScript.leftTriggerIsTriggered || gameObject.tag == "AI");
     }
 }

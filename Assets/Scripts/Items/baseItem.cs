@@ -9,7 +9,7 @@ abstract public class baseItem : MonoBehaviour {
 
     virtual protected bool CheckIsShip(Collider other)
     {
-        return (other.tag == "Player" || other.tag == "Ship");
+        return (other.tag == "Player" || other.tag == "AI");
     }
 
     virtual protected bool CheckIsSelf(Collider other)
