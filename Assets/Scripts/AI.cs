@@ -42,6 +42,10 @@ public class AI : MonoBehaviour {
         af+=180f;
       }
 
+      //need to call generate random vector only when ship hits new hoop and until hits new hoop keep adding that to the delta vector
+      //keep adding b/c every update will overwrite previous vector 
+
+
       transform.RotateAround(transform.position, transform.forward, Time.deltaTime*af*2);
 
       float ar = Vector3.SignedAngle( transform.forward,delta, transform.right);
@@ -74,5 +78,41 @@ public class AI : MonoBehaviour {
             currHoop = hoop.GetComponent<HoopScript>().hoopNum;
         }
         //Debug.Log(hoopNum);
+    }
+
+    public Vector3 GenerateRandVector()
+    {
+        Vector3 rand_vector;
+        float rand_f;
+        float rand_r;
+        float rand_u;
+        float decide = Random.value;
+        if (decide >= .5)
+        {
+            rand_f = Random.value * 90;
+        }
+        else
+        {
+            rand_f = Random.value * -90;
+        }
+        decide = Random.value;
+        if (decide >= .5)
+        {
+            rand_r = Random.value * 180;//need to review this b/c want this b/w 0 and 180 
+            //but need to ensure can still obtain random value less than 180 
+        }
+
+
+        if (decide >= .5)
+        {
+            rand_u = Random.value * 180;
+        }
+        else
+        {
+            rand_u = Random.value * -180;
+        }
+        rand_vector = (rand_f, rand_r, rand_u);
+
+        return rand_vector; 
     }
 }
