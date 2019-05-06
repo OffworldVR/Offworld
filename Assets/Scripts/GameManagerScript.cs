@@ -13,7 +13,8 @@ public class GameManagerScript : MonoBehaviour {
 	public Material nextOut2;
 	public Material passed;
 	public GameObject[] playerShipPrefabs;
-
+	public GameObject[] AIShipPrefabs;
+	public Transform[] AISpawnLocations;
 	private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
 	private List<int> nextHoops = new List<int>();
@@ -39,6 +40,19 @@ public class GameManagerScript : MonoBehaviour {
 				c.enabled = false;
 			}
 			index++;
+		}
+		List<int> nums = new List<int>();
+		for(int i = 0; i<AIShipPrefabs.Length; i++){
+			if(i!=shipValue){
+				nums.Add(i);
+			}
+		}
+		foreach(Transform t in AISpawnLocations){
+			int rnd = Random.Range(0, nums.Count);
+			int nAI = nums[rnd];
+			nums.RemoveAt(rnd);
+			GameObject AI = Instantiate(AIShipPrefabs[nAI]) as GameObject;
+			AI.transform.position = t.position;
 		}
 
 		foreach(GameObject g in allHoops){

@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33411081228089206}
   - component: {fileID: 23107223821776144}
   m_Layer: 0
-  m_Name: xwing
+  m_Name: XWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
