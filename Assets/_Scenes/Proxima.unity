@@ -26644,6 +26644,8 @@ MonoBehaviour:
   playerShipPrefabs:
   - {fileID: 1581669121958084, guid: 4399eff34e341c34ab3e898b44a62c63, type: 2}
   - {fileID: 1160031664266556, guid: ff843b7e846323f48a18632320e1684f, type: 2}
+  AIShipPrefabs: []
+  AISpawnLocations: []
 --- !u!1 &1202929785
 GameObject:
   m_ObjectHideFlags: 0
