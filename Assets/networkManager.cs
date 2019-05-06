@@ -11,14 +11,19 @@ public class AllPlayerData
     public string player2;
 
 
-    public float player1x;
-    public float player1y;
-    public float player1z;
+    public float player1xPos;
+    public float player1yPos;
+    public float player1zPos;
+    public float player1xRot;
+    public float player1yRot;
+    public float player1zRot;
 
-    public float player2x;
-    public float player2y;
-    public float player2z;
-
+    public float player2xPos;
+    public float player2yPos;
+    public float player2zPos;
+    public float player2xRot;
+    public float player2yRot;
+    public float player2zRot;
 
 
 }

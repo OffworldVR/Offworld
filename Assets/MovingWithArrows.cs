@@ -131,6 +131,10 @@ public class MovingWithArrows : MonoBehaviour
             form.AddField("xPos", transform.position.x.ToString());
             form.AddField("yPos", transform.position.y.ToString());
             form.AddField("zPos", transform.position.z.ToString());
+            form.AddField("xRot", transform.eulerAngles.x.ToString());
+            form.AddField("yRot", transform.eulerAngles.x.ToString());
+            form.AddField("zRot", transform.eulerAngles.x.ToString());
+
 
 
 

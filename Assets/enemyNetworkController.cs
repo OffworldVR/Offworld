@@ -28,20 +28,25 @@ public class enemyNetworkController : MonoBehaviour {
     {
         AllPlayerData enemyData = networkManager.GetComponent<networkManager>().allPlayerData;
 
-        Vector3 updatedMovement; 
+        Vector3 updatedMovement,updatedRotation; 
+
 
         //Determine if player 1 or 2 is the enemy and update enemy to that position
-        if (networkManager.GetComponent<networkManager>().playerID == "")
+        if (networkManager.GetComponent<networkManager>().playerID == "1")
         {
-            updatedMovement = new Vector3(enemyData.player2x, enemyData.player2y, enemyData.player2z);
+            updatedMovement = new Vector3(enemyData.player2xPos, enemyData.player2yPos, enemyData.player2zPos);
+            updatedRotation = new Vector3(enemyData.player2xRot, enemyData.player2yRot, enemyData.player2zRot);
+
         }
         else
         {
-            updatedMovement = new Vector3(enemyData.player1x, enemyData.player1y, enemyData.player1z);
+            updatedMovement = new Vector3(enemyData.player1xPos, enemyData.player1yPos, enemyData.player1zPos);
+            updatedRotation = new Vector3(enemyData.player1xRot, enemyData.player1yRot, enemyData.player1zRot);
+
         }
 
         transform.position = updatedMovement;
-
+        transform.eulerAngles = updatedRotation;
     }
    
 }
