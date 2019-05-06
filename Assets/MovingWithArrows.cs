@@ -16,6 +16,8 @@ public class MovingWithArrows : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        addPlayer();
+        StartCoroutine(Upload());
 
     }
 
@@ -24,16 +26,24 @@ public class MovingWithArrows : MonoBehaviour
     {
         move();
         network();
+
     }
 
+    void addPlayer()
+    {
+
+    }
     void network()
     {
+
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             StartCoroutine(GetText());
             StartCoroutine(Upload());
         }
     }
+
 
     
     void move()
@@ -78,7 +88,8 @@ public class MovingWithArrows : MonoBehaviour
 
     IEnumerator GetText()
     {
-     UnityWebRequest www = UnityWebRequest.Get("http://172.21.111.43/data");
+
+        UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/data");
      yield return www.SendWebRequest();
 
      if (www.isNetworkError || www.isHttpError)
@@ -98,28 +109,39 @@ public class MovingWithArrows : MonoBehaviour
 
     IEnumerator Upload()
     {
-
-
-        MyClass myObject = new MyClass();
-        myObject.level = 1;
-        myObject.timeElapsed = transform.position.x;
-        myObject.playerName = "Dr Charles Francis";
-        string json = JsonUtility.ToJson(myObject);
-
-        WWWForm form = new WWWForm();
-        //form.AddField("x", json);
-        form.AddField("level", myObject.level);
-        Debug.Log(json);
-        UnityWebRequest www = UnityWebRequest.Post("http://172.21.111.43/test",form);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
+        while (true)
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
+            /*
+            MyClass myObject = new MyClass();
+            myObject.level = 1;
+            myObject.timeElapsed = transform.position.x;
+            myObject.playerName = "Dr Charles Francis";
+            string json = JsonUtility.ToJson(myObject);
+
+            */
+            WWWForm form = new WWWForm();
+
+
+
+            form.AddField("playerID", "Player22222");
+            form.AddField("xPos", transform.position.x.ToString());
+            form.AddField("yPos", transform.position.y.ToString());
+            form.AddField("zPos", transform.position.z.ToString());
+
+
+
+            Debug.Log(form);
+            UnityWebRequest www = UnityWebRequest.Post("http://172.21.79.81/gameManager/update", form);
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+            }
         }
     }
 }
