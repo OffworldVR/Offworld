@@ -32,7 +32,7 @@ public class enemyNetworkController : MonoBehaviour {
 
 
         //Determine if player 1 or 2 is the enemy and update enemy to that position
-        if (networkManager.GetComponent<networkManager>().playerID == "")
+        if (networkManager.GetComponent<networkManager>().playerID == "1")
         {
             updatedMovement = new Vector3(enemyData.player2xPos, enemyData.player2yPos, enemyData.player2zPos);
             updatedRotation = new Vector3(enemyData.player2xRot, enemyData.player2yRot, enemyData.player2zRot);
