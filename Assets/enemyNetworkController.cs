@@ -3,68 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-[System.Serializable]
-public class PlayerData
-{
-    public string player1;
-    public string player2;
-    public float player2x;
-    public float player2y;
-    public float player2z;
-}
 
 
 public class enemyNetworkController : MonoBehaviour {
 
-    public PlayerData enemyData;
+    private GameObject networkManager;
 
     // Use this for initialization
-    void Start () {
-        enemyData.player1 = "EMPTY";
-        enemyData.player2 = "EMPTY";
+    void Start ()
+    {
 
-        StartCoroutine(GetNetworkData());
-
+        networkManager = GameObject.Find("NetworkManager");
+    
     }
 
     // Update is called once per frame
     void Update()
     { 
-
-
         movementUpdate();	
 	}
 
 
     void movementUpdate()
     {
-        Vector3 updatedMovement = new Vector3(enemyData.player2x, enemyData.player2y, enemyData.player2z);
+        AllPlayerData enemyData = networkManager.GetComponent<networkManager>().allPlayerData;
+
+        Vector3 updatedMovement; 
+
+        //Determine if player 1 or 2 is the enemy and update enemy to that position
+        if (networkManager.GetComponent<networkManager>().playerID == "")
+        {
+            updatedMovement = new Vector3(enemyData.player2x, enemyData.player2y, enemyData.player2z);
+        }
+        else
+        {
+            updatedMovement = new Vector3(enemyData.player1x, enemyData.player1y, enemyData.player1z);
+        }
+
         transform.position = updatedMovement;
 
     }
-    IEnumerator GetNetworkData()
-    {
-
-        while (true)
-        {
-            UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/gameManager/refresh");
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError || www.isHttpError)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                // Show results as text
-                Debug.Log(www.downloadHandler.text);
-
-
-                JsonUtility.FromJsonOverwrite(www.downloadHandler.text, enemyData);
-                Debug.Log(enemyData.player2z);
-                // Or retrieve results as binary data
-                byte[] results = www.downloadHandler.data;
-            }
-        }
-    }
+   
 }

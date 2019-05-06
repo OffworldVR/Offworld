@@ -12,10 +12,13 @@ public class MyClass
 }
 public class MovingWithArrows : MonoBehaviour
 {
+    private GameObject networkManager;
 
     // Use this for initialization
     void Start()
     {
+        networkManager = GameObject.Find("NetworkManager");
+
         addPlayer();
         StartCoroutine(Upload());
 
@@ -123,7 +126,8 @@ public class MovingWithArrows : MonoBehaviour
 
 
 
-            form.AddField("playerID", "Player22222");
+            form.AddField("playerID", networkManager.GetComponent<networkManager>().playerID);
+
             form.AddField("xPos", transform.position.x.ToString());
             form.AddField("yPos", transform.position.y.ToString());
             form.AddField("zPos", transform.position.z.ToString());
