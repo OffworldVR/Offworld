@@ -16,6 +16,7 @@ public class AI : MonoBehaviour {
     private GameManagerScript gm;
     private itemPrefabSpawnController itemController;
     private Transform hoop;
+    private Vector3 random;
 
     //set RB's, Start Position, Hoops and GM
     void Start () {
@@ -29,7 +30,7 @@ public class AI : MonoBehaviour {
 	void Update () {
     if(raceHasStarted){
 
-      itemController.ActivateItem();
+      itemController.ActivateItem();      
 
       Vector3 delta = hoop.position - transform.position;
       Vector3 dxf = Vector3.Cross(delta, transform.forward);
@@ -66,7 +67,7 @@ public class AI : MonoBehaviour {
         }
       }
       transform.position += transform.forward * Time.deltaTime * velocity;
-
+      
       }
   }
 
@@ -101,7 +102,7 @@ public class AI : MonoBehaviour {
             rand_r = Random.value * 180;//need to review this b/c want this b/w 0 and 180 
             //but need to ensure can still obtain random value less than 180 
         }
-
+        rand_r = 1;
 
         if (decide >= .5)
         {
@@ -111,8 +112,10 @@ public class AI : MonoBehaviour {
         {
             rand_u = Random.value * -180;
         }
-        rand_vector = (rand_f, rand_r, rand_u);
+        rand_vector = new Vector3 (rand_f, rand_r, rand_u);
 
+        rand_vector = new Vector3(1, 1, 1);
         return rand_vector; 
+        
     }
 }

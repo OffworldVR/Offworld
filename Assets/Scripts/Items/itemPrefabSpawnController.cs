@@ -33,7 +33,7 @@ public class itemPrefabSpawnController : MonoBehaviour {
     public const int laserActiveTime = 4;
 
     //Number of Items the player can get
-    private static int totalItems = 5;
+    private static int totalItems = 4;//changed from 5 to 4 to exclude laser
 
     //Current active Item
     public int ActiveItem = 0;
@@ -60,7 +60,7 @@ public class itemPrefabSpawnController : MonoBehaviour {
 public void ItemSelector()
     {
         //Set active item to the number in the list
-        ActiveItem = Random.Range(1, (totalItems+1));
+        ActiveItem = Random.Range(2, (totalItems));//changed range from 1 to 2 and decreased end by 1 to exlucde laser
 
 
         //Functions you want to only run once when the player activates the Item
@@ -178,6 +178,10 @@ public void ItemSelector()
     private void deactivateItem(){
         laser1.SetActive(false);
         laser2.SetActive(false);
+        minePrefab.SetActive(false);
+        blackHoleBombPrefab.SetActive(false);
+        misslePrefab.SetActive(false);
+        asteroidDrillPrefab.SetActive(false);
         ActiveItem = 0;
     }
 
