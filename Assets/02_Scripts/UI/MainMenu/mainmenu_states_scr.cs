@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 public class mainmenu_states_scr : MonoBehaviour {
-
     // Enums
     enum MenuType { MENU_MAIN, MENU_OPTIONS, MENU_SHIP, MENU_MAP, MENU_INTRO };
     enum MainChoice { MAIN_PLAY, MAIN_OPTIONS, MAIN_QUIT };
@@ -47,6 +46,14 @@ public class mainmenu_states_scr : MonoBehaviour {
     bool startedHolding;
     float startHoldTime;
 
+    // InnerWheel
+    bool rewindSpin; //Spin will need to rewind
+    bool spinBack;  //Spin is rewinding
+    float spinSpeed;
+
+    // Audio
+    AudioController playerAudio;
+
     void Start () {
         menus = new GameObject[5];
         menus[0] = transform.GetChild(1).gameObject;
@@ -74,14 +81,21 @@ public class mainmenu_states_scr : MonoBehaviour {
         PlayerPrefs.SetInt("musicVolume", 80);
         inOption = false;
         startedHolding = false;
+
+        rewindSpin = false;
+        spinSpeed = 1.0f;
+        spinBack = false;
+
+        playerAudio = GetComponent<AudioController>();
     }
 	
 	// Update is called once per frame
 	void Update () {
         UpdateControls();
         UpdateLerp();
-        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("sfxVolume").ToString());
-        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("musicVolume").ToString());
+        SpinTheWheel();
+        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("sfxVolume").ToString());
+        transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("musicVolume").ToString());
         Debug.Log(inOption);
     }
 
@@ -110,8 +124,11 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                         }
                         lerpTime = 0f;
+                        ShowMisc((int)currentMain);
+                        playerAudio.PlaySound(1);
                     }
                     break;
+
                 case MenuType.MENU_OPTIONS:
                     if (currentOption - 1 >= 0)
                     {
@@ -125,6 +142,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                         }
                         lerpTime = 0f;
+                        ShowMisc((int)currentOption);
+                        playerAudio.PlaySound(1);
                     }
                     break;
                 case MenuType.MENU_SHIP:
@@ -140,6 +159,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                         }
                         lerpTime = 0f;
+                        ShowMisc((int)currentShip);
+                        playerAudio.PlaySound(1);
                     }
                     break;
                 case MenuType.MENU_MAP:
@@ -155,6 +176,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                         }
                         lerpTime = 0f;
+                        ShowMisc((int)currentStage);
+                        playerAudio.PlaySound(1);
                     }
                     break;
 
@@ -167,7 +190,8 @@ public class mainmenu_states_scr : MonoBehaviour {
             menus[(int)MenuType.MENU_MAIN].SetActive(true);
         }
         // Showing stuff in the circle
-        if(currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
+        /*
+        if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
         {
             transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
             transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
@@ -188,6 +212,7 @@ public class mainmenu_states_scr : MonoBehaviour {
             transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
             transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
         }
+        */
     }
     void Down()
     {
@@ -213,6 +238,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                             lerpTime = 0f;
                         }
+                        ShowMisc((int)currentMain);
+                        playerAudio.PlaySound(1);
                     }
                     break;
                 case MenuType.MENU_OPTIONS:
@@ -228,6 +255,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                             lerpTime = 0f;
                         }
+                        ShowMisc((int)currentOption);
+                        playerAudio.PlaySound(1);
                     }
                     break;
                 case MenuType.MENU_SHIP:
@@ -243,6 +272,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                             lerpTime = 0f;
                         }
+                        ShowMisc((int)currentShip);
+                        playerAudio.PlaySound(1);
                     }
                     break;
                 case MenuType.MENU_MAP:
@@ -258,6 +289,8 @@ public class mainmenu_states_scr : MonoBehaviour {
                             lerpsNeeded.Add(newPos);
                             lerpTime = 0f;
                         }
+                        ShowMisc((int)currentStage);
+                        playerAudio.PlaySound(1);
                     }
                     break;
             }
@@ -268,31 +301,11 @@ public class mainmenu_states_scr : MonoBehaviour {
             menus[(int)MenuType.MENU_INTRO].SetActive(false);
             menus[(int)MenuType.MENU_MAIN].SetActive(true);
         }
-        if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(true);
-        }
-        else if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_SOUND)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
-        }
-        else if (currentMenu == MenuType.MENU_OPTIONS)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
-        }
     }
     void Press()
     {
         Debug.Log("Press");
+        playerAudio.PlaySound(0);
         if (!inOption)
         {
             switch (currentMenu)
@@ -403,6 +416,15 @@ public class mainmenu_states_scr : MonoBehaviour {
         {
             inOption = false;
         }
+        LerpData spinData;
+        spinData.item = transform.GetChild(7);
+        spinData.start = transform.GetChild(9);
+        spinData.end = transform.GetChild(10);
+        lerpsNeeded.Add(spinData);
+        lerpTime = 0f;
+        rewindSpin = true;
+        spinSpeed = 4.0f;
+        Debug.Log("Shrink");
     }
 
     void HoldRight()
@@ -422,6 +444,7 @@ public class mainmenu_states_scr : MonoBehaviour {
                     {
                         startHoldTime = Time.time;
                         PlayerPrefs.SetInt("musicVolume", PlayerPrefs.GetInt("musicVolume") + 1);
+                        playerAudio.PlaySound(1);
                     }
                 }
             }
@@ -433,6 +456,7 @@ public class mainmenu_states_scr : MonoBehaviour {
                     {
                         startHoldTime = Time.time;
                         PlayerPrefs.SetInt("sfxVolume", PlayerPrefs.GetInt("sfxVolume") + 1);
+                        playerAudio.PlaySound(1);
                     }
                 }
             }
@@ -455,6 +479,7 @@ public class mainmenu_states_scr : MonoBehaviour {
                     {
                         startHoldTime = Time.time;
                         PlayerPrefs.SetInt("musicVolume", PlayerPrefs.GetInt("musicVolume") - 1);
+                        playerAudio.PlaySound(1);
                     }
                 }
             }
@@ -466,6 +491,7 @@ public class mainmenu_states_scr : MonoBehaviour {
                     {
                         startHoldTime = Time.time;
                         PlayerPrefs.SetInt("sfxVolume", PlayerPrefs.GetInt("sfxVolume") - 1);
+                        playerAudio.PlaySound(1);
                     }
                 }
             }
@@ -571,5 +597,36 @@ public class mainmenu_states_scr : MonoBehaviour {
                 SceneManager.LoadScene("Proxima");
                 break;
         }
+    }
+
+    void ShowMisc(int i)
+    {
+        for(int j = 0; j < transform.GetChild((int)currentMenu + 1).GetChild(transform.GetChild((int)currentMenu + 1).childCount - 1).childCount; j++)
+        {
+            transform.GetChild((int)currentMenu + 1).GetChild(transform.GetChild((int)currentMenu + 1).childCount - 1).GetChild(j).gameObject.SetActive(false);
+        }
+        transform.GetChild((int)currentMenu + 1).GetChild(transform.GetChild((int)currentMenu + 1).childCount - 1).GetChild(i).gameObject.SetActive(true);
+    }
+
+    void SpinTheWheel()
+    {
+        if(rewindSpin && transform.GetChild(7).localScale == transform.GetChild(10).localScale)
+        {
+            rewindSpin = false;
+            LerpData spinData;
+            spinData.item = transform.GetChild(7);
+            spinData.start = transform.GetChild(10);
+            spinData.end = transform.GetChild(9);
+            lerpsNeeded.Add(spinData);
+            lerpTime = 0f;
+            spinBack = true;
+            Debug.Log("Grow");
+        }
+        if(spinBack && transform.GetChild(7).localScale == transform.GetChild(9).localScale)
+        {
+            spinSpeed = 1.0f;
+            Debug.Log("Back");
+        }
+        transform.GetChild(7).Rotate(new Vector3(0f, 0f, spinSpeed));
     }
 }
