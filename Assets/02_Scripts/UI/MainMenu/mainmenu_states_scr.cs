@@ -308,6 +308,14 @@ public class mainmenu_states_scr : MonoBehaviour {
         playerAudio.PlaySound(0);
         if (!inOption)
         {
+            // Show correct button instructions
+            if(currentOption == OptionsChoice.OPTIONS_MUSIC || currentOption == OptionsChoice.OPTIONS_SOUND)
+            {
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(2).gameObject.SetActive(false);
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(3).gameObject.SetActive(true);
+            }
+
+            // Switch
             switch (currentMenu)
             {
                 case MenuType.MENU_INTRO:
@@ -414,6 +422,11 @@ public class mainmenu_states_scr : MonoBehaviour {
         }
         else
         {
+            if (currentOption == OptionsChoice.OPTIONS_MUSIC || currentOption == OptionsChoice.OPTIONS_SOUND)
+            {
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(2).gameObject.SetActive(true);
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(3).gameObject.SetActive(false);
+            }
             inOption = false;
         }
         LerpData spinData;

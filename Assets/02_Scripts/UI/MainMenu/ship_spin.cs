@@ -15,6 +15,7 @@ public class ship_spin : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.GetChild(0).Rotate(0, -1 * Mathf.Sin(period * tick), 0);
+        transform.GetChild(0).Translate(0, 20 * Mathf.Sin((period / 3.0f)  * tick), 0);
         tick += Time.deltaTime;
 	}
 }
