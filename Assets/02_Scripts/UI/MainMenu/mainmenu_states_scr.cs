@@ -96,18 +96,15 @@ public class mainmenu_states_scr : MonoBehaviour {
         SpinTheWheel();
         transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("sfxVolume").ToString());
         transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(PlayerPrefs.GetInt("musicVolume").ToString());
-        Debug.Log(inOption);
     }
 
     void Up()
     {
-        Debug.Log("Up");
         // Correct Menus
         int startIndex;
         if (currentMenu != MenuType.MENU_INTRO && !inOption)
         {
             startIndex = FindPosition(menus[(int)currentMenu].transform.GetChild(0).position);
-            Debug.Log(startIndex);
 
             switch (currentMenu)
             {
@@ -189,34 +186,9 @@ public class mainmenu_states_scr : MonoBehaviour {
             menus[(int)MenuType.MENU_INTRO].SetActive(false);
             menus[(int)MenuType.MENU_MAIN].SetActive(true);
         }
-        // Showing stuff in the circle
-        /*
-        if (currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_MUSIC)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(true);
-        }
-        else if(currentMenu == MenuType.MENU_OPTIONS && currentOption == OptionsChoice.OPTIONS_SOUND)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(true);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
-        }
-        else if(currentMenu == MenuType.MENU_OPTIONS)
-        {
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(0).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(1).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(2).gameObject.SetActive(false);
-            transform.GetChild((int)MenuType.MENU_OPTIONS + 1).GetChild(MAX_OPTIONS + 1).GetChild(3).gameObject.SetActive(false);
-        }
-        */
     }
     void Down()
     {
-        Debug.Log("Down");
         // Correct Menus
         int startIndex;
         // Showing stuff in the circle
@@ -304,17 +276,9 @@ public class mainmenu_states_scr : MonoBehaviour {
     }
     void Press()
     {
-        Debug.Log("Press");
         playerAudio.PlaySound(0);
         if (!inOption)
         {
-            // Show correct button instructions
-            if(currentOption == OptionsChoice.OPTIONS_MUSIC || currentOption == OptionsChoice.OPTIONS_SOUND)
-            {
-                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(2).gameObject.SetActive(false);
-                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(3).gameObject.SetActive(true);
-            }
-
             // Switch
             switch (currentMenu)
             {
@@ -408,9 +372,14 @@ public class mainmenu_states_scr : MonoBehaviour {
                             currentMenu = MenuType.MENU_MAIN;
                             break;
                         case OptionsChoice.OPTIONS_SOUND:
+                            // Show correct button instructions
+                            menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(2).gameObject.SetActive(false);
+                            menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(3).gameObject.SetActive(true);
                             inOption = true;
                             break;
                         case OptionsChoice.OPTIONS_MUSIC:
+                            menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(2).gameObject.SetActive(false);
+                            menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(3).gameObject.SetActive(true);
                             inOption = true;
                             break;
                         case OptionsChoice.OPTIONS_CALLIBRATE:
@@ -424,8 +393,8 @@ public class mainmenu_states_scr : MonoBehaviour {
         {
             if (currentOption == OptionsChoice.OPTIONS_MUSIC || currentOption == OptionsChoice.OPTIONS_SOUND)
             {
-                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(2).gameObject.SetActive(true);
-                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild((int)currentOption - 1).GetChild(3).gameObject.SetActive(false);
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(2).gameObject.SetActive(true);
+                menus[(int)MenuType.MENU_OPTIONS].transform.GetChild(MAX_OPTIONS + 1).GetChild((int)currentOption).GetChild(3).gameObject.SetActive(false);
             }
             inOption = false;
         }
@@ -437,7 +406,6 @@ public class mainmenu_states_scr : MonoBehaviour {
         lerpTime = 0f;
         rewindSpin = true;
         spinSpeed = 4.0f;
-        Debug.Log("Shrink");
     }
 
     void HoldRight()
@@ -633,12 +601,10 @@ public class mainmenu_states_scr : MonoBehaviour {
             lerpsNeeded.Add(spinData);
             lerpTime = 0f;
             spinBack = true;
-            Debug.Log("Grow");
         }
         if(spinBack && transform.GetChild(7).localScale == transform.GetChild(9).localScale)
         {
             spinSpeed = 1.0f;
-            Debug.Log("Back");
         }
         transform.GetChild(7).Rotate(new Vector3(0f, 0f, spinSpeed));
     }
