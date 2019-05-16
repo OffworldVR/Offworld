@@ -4,18 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour {
-	public int numLaps;
-	public Material nextIn;
-	public Material nextIn1;
-	public Material nextIn2;
-	public Material nextOut;
-	public Material nextOut1;
-	public Material nextOut2;
-	public Material passed;
-	public GameObject[] playerShipPrefabs;
-	public GameObject[] AIShipPrefabs;
-	public Transform[] AISpawnLocations;
-	private GameObject[] allHoops;
+    public int numLaps;
+    public int shipValue = 1;
+    public Material nextIn;
+    public Material nextIn1;
+    public Material nextIn2;
+    public Material nextOut;
+    public Material nextOut1;
+    public Material nextOut2;
+    public Material passed;
+    public GameObject[] playerShipPrefabs;
+    public GameObject[] AIShipPrefabs;
+    public Transform[] AISpawnLocations;
+    private GameObject[] allHoops;
 	private List<HoopScript> playerHoops = new List<HoopScript>();
 	private List<int> nextHoops = new List<int>();
 	private int nextHoop = -1;
@@ -27,9 +28,16 @@ public class GameManagerScript : MonoBehaviour {
 
 	void Awake () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
+        //fox ship = 0
+        //x-wing = 1
+        //vertical = 2
+        //saucer = 3
+        //pod racer = 4
+        //for the arrays containing ships speeeds, roations etc
+        //if order is diff in shipprefab array let Carter know so he can modify his arrays
 
-		//TODO: GET SELECTED SHIPH VALUE FROM PLAYER PREFS
-		int shipValue = 1;
+        //TODO: GET SELECTED SHIPH VALUE FROM PLAYER PREFS
+        shipValue = 1;
 		GameObject ship = Instantiate(playerShipPrefabs[shipValue]) as GameObject;
 		GameObject player = GameObject.Find("Player");
 		ship.transform.position += player.transform.position;
@@ -177,4 +185,8 @@ public class GameManagerScript : MonoBehaviour {
 	public bool canGo(){
 		return go;
 	}
+    public int getShipValue()
+    {
+        return shipValue;
+    }
 }

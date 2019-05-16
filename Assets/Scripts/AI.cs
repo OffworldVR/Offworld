@@ -8,10 +8,13 @@ public class AI : MonoBehaviour {
     private float actingMaxVelocity = 0;
     private float acceleration = 10f;
     private int currHoop = -1;
-    private float shipRotation;
+    private float rotation = 10.0f;
     private float shipDistance;
 
     public bool raceHasStarted = false;
+    public float[] shipMaxVelocity = { 150, 200, 200, 150, 100 };
+    public float[] shipAcceleration = { 10, 8, 5, 15, 20 };
+    public float[] shipRotation = { 10, 7, 15, 10, 6 };
 
     private GameManagerScript gm;
     private Transform hoop;
@@ -21,9 +24,23 @@ public class AI : MonoBehaviour {
         gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         hoop = gm.getNextHoop(currHoop);
         currHoop++;
+
+        //fox ship = 0
+        //x-wing = 1
+        //vertical = 2
+        //saucer = 3
+        //pod racer = 4
+
+        Max_Velocity = shipMaxVelocity[gm.getShipValue()];
+        acceleration = shipAcceleration[gm.getShipValue()];
+        rotation = shipRotation[gm.getShipValue()];
+        Debug.Log(gm.getShipValue());
+        Debug.Log(Max_Velocity);
+        Debug.Log(acceleration);
+        Debug.Log(rotation);
     }
 
-	void Update () {
+    void Update () {
     if(raceHasStarted){
       Vector3 delta = hoop.position - transform.position;
       Vector3 dxf = Vector3.Cross(delta, transform.forward);
