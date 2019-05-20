@@ -11,12 +11,13 @@ public class guidedMissileController : baseItem {
 
 	void Start () {
         GetTargetShip();
-        InvokeRepeating("Update60", 0, 1f / 60f);
+        //InvokeRepeating("Update60", 0, 1f / 60f); // NEED TO UNCOMMENT TO ACTUALLY MAKE THINGS WORK
         Invoke("DestroySelf", DURATION);
 	}
 
     void GetTargetShip()
     {
+        Debug.LogWarning("TODO: IMPLEMENT GET TARGET SHIP IN GUIDED MISSLE CONTROLLER");
         // TODO: 
         // needs to be implemented depending on how the ship's placing script is implemented
         // Possible implementation of this function
@@ -45,7 +46,7 @@ public class guidedMissileController : baseItem {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (CheckIsShip(other))
+        if (CheckIsShip(other) && !CheckIsSelf(other))
             DamageShip(other);
         DestroySelf();
     }

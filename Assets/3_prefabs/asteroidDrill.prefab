@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33614645447560694}
   - component: {fileID: 23226630483420114}
   - component: {fileID: 136661341929814482}
-  - component: {fileID: 114156405838186600}
+  - component: {fileID: 114893481556283794}
   m_Layer: 0
   m_Name: asteroidDrill
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795555004509752}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114156405838186600
+--- !u!114 &114893481556283794
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1795555004509752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5c2197582087b46b2177867d0a3037, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e46db98a81065142aff2318b5520edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAMAGE: 0
-  DURATION: 5
-  SPEED_MODIFIER: 0
+  DAMAGE: 20
+  parentShip: {fileID: 0}
+  DURATION: 10
+  SPEED_MODIFIER: 1
 --- !u!136 &136661341929814482
 CapsuleCollider:
   m_ObjectHideFlags: 1

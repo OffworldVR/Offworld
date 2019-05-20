@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33119628662919064}
   - component: {fileID: 23962069890364406}
   - component: {fileID: 136379927308492546}
-  - component: {fileID: 114712574774569152}
+  - component: {fileID: 114823553103373118}
   m_Layer: 0
   m_Name: GuidedMissile
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1073875368412808}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114712574774569152
+--- !u!114 &114823553103373118
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1073875368412808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e06bdac2cf8701e499190a93c6278243, type: 3}
+  m_Script: {fileID: 11500000, guid: 938c33e7035b27c4eb797d3dbbd92ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAMAGE: 2
-  TRAVEL_SPEED: 0.1
-  DURATION: 5
+  DAMAGE: 10
+  parentShip: {fileID: 0}
+  TRAVEL_SPEED: 10
+  DURATION: 25
   targetShip: {fileID: 0}
 --- !u!136 &136379927308492546
 CapsuleCollider:

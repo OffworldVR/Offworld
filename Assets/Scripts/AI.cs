@@ -75,4 +75,14 @@ public class AI : MonoBehaviour {
         }
         //Debug.Log(hoopNum);
     }
+
+    public void DisableMovement()
+    {
+        Max_Velocity = 0;
+    }
+
+    public void EnableMovement()
+    {
+        Max_Velocity = 150;
+    }
 }

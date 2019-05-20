@@ -7,7 +7,7 @@ public class HoopScript : MonoBehaviour {
 	public int hoopNum;
 	public bool forPlayer;
 	public bool hasItem;
-    public float itemRefreshTime = 5;
+    public float itemRefreshTime = 5f;
     private GameManagerScript gm;
 
 	// Use this for initialization
@@ -31,7 +31,7 @@ public class HoopScript : MonoBehaviour {
 						if(hasItem){
 							gm.HitInner(hoopNum);
                             itemPrefabSpawnController shipItemController = c.GetComponent<itemPrefabSpawnController>();
-                            if (!shipItemController.hasItem()){
+                            if (shipItemController != null && !shipItemController.hasItem()){
                                 GiveItem(shipItemController);
                                 SleepItem();
                             }
@@ -58,7 +58,7 @@ public class HoopScript : MonoBehaviour {
                     if (hasItem)
                     {
                         itemPrefabSpawnController shipItemController = c.GetComponent<itemPrefabSpawnController>();
-                        if (!shipItemController.hasItem())
+                        if (shipItemController != null && !shipItemController.hasItem())
                         {
                             GiveItem(shipItemController);
                             SleepItem();

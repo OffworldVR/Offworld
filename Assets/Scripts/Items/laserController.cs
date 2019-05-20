@@ -8,19 +8,23 @@ public class laserController : baseItem {
     public float DURATION;
 
     void Start () {
+        transform.rotation = Quaternion.Euler(transform.rotation.x + 90, transform.rotation.y, transform.rotation.z);
         InvokeRepeating("Update60", 0, 1f / 60f);
         Invoke("DestroySelf", DURATION);
     }
 	
 	void Update60 ()
     {
-        transform.Translate(TRAVEL_SPEED * transform.forward);
+        transform.Translate(TRAVEL_SPEED * -transform.forward);
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (CheckIsShip(other))
-            DamageShip(other);
-        DestroySelf();
+        if (!CheckIsSelf(other))
+        {
+            if (CheckIsShip(other))
+                DamageShip(other);
+            DestroySelf();
+        }
     }
 }

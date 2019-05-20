@@ -6,7 +6,7 @@ abstract public class baseItem : MonoBehaviour {
 
     public float DAMAGE = 0;
     public GameObject parentShip = null;
-
+    
     virtual protected bool CheckIsShip(Collider other)
     {
         return (other.tag == "Player" || other.tag == "AI");
@@ -19,14 +19,22 @@ abstract public class baseItem : MonoBehaviour {
 
     virtual protected void DamageShip(Collider other)
     {
-        // TODO: 
-        // needs to be implemented depending on how the ship's (health) script is implemented
-        // Possible implementation of this function
-        // other.GetComponent<ShipData>().dealDamage(DAMAGE);
+        if(CheckIsShip(other))
+        {
+            shipHealthManager shipHealth = other.gameObject.GetComponent<shipHealthManager>();
+            if (shipHealth != null)
+                shipHealth.DamageShip(DAMAGE);
+        }
     }
 
     virtual protected void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+    virtual public GameObject setParentShip(GameObject desiredParent)
+    {
+        parentShip = desiredParent;
+        return parentShip;
     }
 }

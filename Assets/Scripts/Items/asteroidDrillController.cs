@@ -9,6 +9,7 @@ public class asteroidDrillController : baseItem {
 
 	void Start () {
 
+        Debug.LogWarning("TODO: NEED TO ACTUALLY MAKE asteroidDrillController DO SOMETHING");
         // TODO: make ship invincible
         // possible code
         // parentShip.GetComponent<ShipStats>().isInvincible = true;
@@ -38,5 +39,12 @@ public class asteroidDrillController : baseItem {
         // parentShip.GetComponent<ShipStats>().maxSpeedModifier = 1f;
 
         Destroy(gameObject);
+    }
+
+    override public GameObject setParentShip(GameObject desiredParent)
+    {
+        Debug.Log("Asteroid Drill");
+        transform.parent = base.setParentShip(desiredParent).transform;
+        return parentShip;
     }
 }

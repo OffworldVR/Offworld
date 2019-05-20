@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour {
 		public float Wheel_Rotate_Speed_Multiplier = 300;
 		public float Wheel_Pull_Speed_Multiplier = 240;
 		public float Acceleration = 10;
-		public float Max_Velocity = 15;
+		public float Max_Velocity = 150;
 
 		private Vector3 OriginalGrabPosition;
 		private Vector3 NewGrabPosition;
@@ -78,12 +78,12 @@ public class PlayerScript : MonoBehaviour {
             UpdatePitch();
             UpdateRoll();
             rotate();
-
-
-            //Activate which ever item is enabled
-            GetComponent<itemPrefabSpawnController>().ActivateItem();
         }
 
+        if(leftTriggerIsTriggered)
+        {
+            GetComponent<itemPrefabSpawnController>().ActivateItem();
+        }
         Accelerate();
         move();
     }
@@ -253,26 +253,34 @@ public class PlayerScript : MonoBehaviour {
         {
             OriginalGrabPosition = rightHandTransform.localPosition;
 
-				    if(rightHandleIsTriggered && rightTriggerIsTriggered)
-		            {
-		                //Vibrate Controller
-					    			VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
-				    		}
+		    if(rightHandleIsTriggered && rightTriggerIsTriggered)
+		    {
+		        //Vibrate Controller
+				VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 1f, 1f);
+		    }
         }
         else
         {
-				    if(!(rightHandleIsTriggered && rightTriggerIsTriggered))
-		            {
-		                //Vibrate Controller
-		                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
-				    }
-	    	}
-				canSteer = rightHandleIsTriggered && rightTriggerIsTriggered && gm.canGo();
-		}
+			if(!(rightHandleIsTriggered && rightTriggerIsTriggered))
+		    {
+		        //Vibrate Controller
+		        VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(rightHandTransform.gameObject), 1f, 2f, 1f);
+			}
+	    }
+		canSteer = rightHandleIsTriggered && rightTriggerIsTriggered && gm.canGo();
+	}
 
-		public void ShowEndScoreboard(float compTime){
-				transform.Find("Scoreboard").GetComponent<TextMeshPro>().SetText("Time: " + compTime.ToString("F1"));
-		}
+	public void ShowEndScoreboard(float compTime){
+		transform.Find("Scoreboard").GetComponent<TextMeshPro>().SetText("Time: " + compTime.ToString("F1"));
+	}
 
+    public void DisableMovement()
+    {
+        Max_Velocity = 0;
+    }
 
+    public void EnableMovement()
+    {
+        Max_Velocity = 150;
+    }
 }

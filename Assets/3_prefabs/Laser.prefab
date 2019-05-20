@@ -93,10 +93,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476747073123324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7be8f95e96be14e91da508dd70170c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2efa68207dcff4f4c9faeedeabaf9d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAMAGE: 0
+  DAMAGE: 15
+  parentShip: {fileID: 0}
   TRAVEL_SPEED: 2
   DURATION: 10
 --- !u!136 &136265854920549184

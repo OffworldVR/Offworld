@@ -27106,6 +27106,7 @@ GameObject:
   - component: {fileID: 1330635911}
   - component: {fileID: 1330635915}
   - component: {fileID: 1330635910}
+  - component: {fileID: 1330635916}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -27125,15 +27126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6852de0cbdda9b4b8b279c5864e6610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minePrefab: {fileID: 1721183168622462, guid: 2bffda69159bae74483f44f11c261ae9, type: 2}
-  blackHoleBombPrefab: {fileID: 1883754983004820, guid: de7f740814871da4fabad054571066d8,
-    type: 2}
-  misslePrefab: {fileID: 1073875368412808, guid: 673c523c98bda5a489218df5770f9f15,
-    type: 2}
-  asteroidDrillPrefab: {fileID: 1795555004509752, guid: e475838fb997be648893316a3a93ec23,
-    type: 2}
-  laser1: {fileID: 0}
-  laser2: {fileID: 0}
+  itemPrefabs:
+  - {fileID: 1476747073123324, guid: f8bd9968077970946a4b010e38c17fac, type: 2}
+  - {fileID: 1721183168622462, guid: 2bffda69159bae74483f44f11c261ae9, type: 2}
+  - {fileID: 1883754983004820, guid: de7f740814871da4fabad054571066d8, type: 2}
+  - {fileID: 1073875368412808, guid: 673c523c98bda5a489218df5770f9f15, type: 2}
+  - {fileID: 1795555004509752, guid: e475838fb997be648893316a3a93ec23, type: 2}
   ActiveItem: 0
 --- !u!65 &1330635911
 BoxCollider:
@@ -27220,6 +27218,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.41, y: 2.1435518, z: 11.84432}
   m_Center: {x: 0, y: -1.4394469, z: -2.4976988}
+--- !u!114 &1330635916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1330635909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17316910f3804fc4f89f69284f1219be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
 --- !u!1 &1331706573
 GameObject:
   m_ObjectHideFlags: 0
@@ -53111,6 +53121,7 @@ GameObject:
   - component: {fileID: 2134759839}
   - component: {fileID: 2134759838}
   - component: {fileID: 2134759842}
+  - component: {fileID: 2134759843}
   m_Layer: 0
   m_Name: AI
   m_TagString: AI
@@ -53185,16 +53196,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6852de0cbdda9b4b8b279c5864e6610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minePrefab: {fileID: 1721183168622462, guid: 2bffda69159bae74483f44f11c261ae9, type: 2}
-  blackHoleBombPrefab: {fileID: 1883754983004820, guid: de7f740814871da4fabad054571066d8,
-    type: 2}
-  misslePrefab: {fileID: 1073875368412808, guid: 673c523c98bda5a489218df5770f9f15,
-    type: 2}
-  asteroidDrillPrefab: {fileID: 1795555004509752, guid: e475838fb997be648893316a3a93ec23,
-    type: 2}
-  laser1: {fileID: 0}
-  laser2: {fileID: 0}
+  itemPrefabs:
+  - {fileID: 1476747073123324, guid: f8bd9968077970946a4b010e38c17fac, type: 2}
+  - {fileID: 1721183168622462, guid: 2bffda69159bae74483f44f11c261ae9, type: 2}
+  - {fileID: 1883754983004820, guid: de7f740814871da4fabad054571066d8, type: 2}
+  - {fileID: 1073875368412808, guid: 673c523c98bda5a489218df5770f9f15, type: 2}
+  - {fileID: 1795555004509752, guid: e475838fb997be648893316a3a93ec23, type: 2}
   ActiveItem: 0
+--- !u!114 &2134759843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2134759837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17316910f3804fc4f89f69284f1219be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
 --- !u!1 &2135171642
 GameObject:
   m_ObjectHideFlags: 0

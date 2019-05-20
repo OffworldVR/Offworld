@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33429278681713594}
   - component: {fileID: 23686195855799366}
   - component: {fileID: 135936707713683670}
-  - component: {fileID: 114494793127305372}
+  - component: {fileID: 114375114676789412}
   m_Layer: 0
   m_Name: BlackHoleAura
   m_TagString: Untagged
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 33177992643186880}
   - component: {fileID: 23047824240479462}
   - component: {fileID: 135611628508576964}
-  - component: {fileID: 114520181460308414}
+  - component: {fileID: 114838410966277286}
   m_Layer: 0
   m_Name: BlackHoleCore
   m_TagString: Untagged
@@ -160,7 +160,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1602882530653510}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114494793127305372
+--- !u!114 &114375114676789412
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,13 +168,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1602882530653510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7428689c13bb2044d998353445957068, type: 3}
+  m_Script: {fileID: 11500000, guid: 370246cbda58f0f46a689b853a2f9cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DAMAGE: 0
+  parentShip: {fileID: 0}
   BLACK_HOLE_FORCE_MULTIPLIER: 1
-  BLACK_HOLE_STRENGTH: 5
---- !u!114 &114520181460308414
+  BLACK_HOLE_STRENGTH: 200
+--- !u!114 &114838410966277286
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,13 +183,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883754983004820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8952a8f69fb00c64a8174942aef2e0db, type: 3}
+  m_Script: {fileID: 11500000, guid: 6284c003cde9fb94891181b5d81d84d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DAMAGE: 0
-  DURATION: 5
-  AURA_DELAY: 1
-  TRAVEL_SPEED: 1
+  parentShip: {fileID: 0}
+  DURATION: 15
+  AURA_DELAY: 5
+  TRAVEL_SPEED: 10
 --- !u!135 &135611628508576964
 SphereCollider:
   m_ObjectHideFlags: 1
