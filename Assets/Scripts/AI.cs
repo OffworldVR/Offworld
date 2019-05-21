@@ -39,6 +39,14 @@ public class AI : MonoBehaviour {
         Debug.Log(acceleration);
         Debug.Log(rotation);
     }
+    //add deccelertion value and health value to ship array
+    //add into GM script ai selction of ships based on player pref
+    //instead of slowin down by subtraction acceleration substitute it with decceleration values
+    //NEED:
+    //deccleration values
+    //Health values
+    //implement decceleration
+    
 
     void Update () {
     if(raceHasStarted){
