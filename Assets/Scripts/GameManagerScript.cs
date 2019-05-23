@@ -13,11 +13,11 @@ public class GameManagerScript : MonoBehaviour {
     public Material nextOut1;
     public Material nextOut2;
     public Material passed;
-    public float[] shipMaxVelocity =    { 150, 200, 200, 150, 100};
-    public float[] shipAcceleration =   {  10,   8,   5,  15,  20};
-    public float[] shipRotation =       {  10,   7,  15,  10,   6};
-    public float[] shipHealth =         {  80,  90, 150, 100,  50};
-    public float[] shipDecceleration =  {   8,   6,   5,  10,   5};
+    public float[] shipMaxVelocity =    { 150.0f, 200.0f, 200.0f, 150.0f, 100.0f};
+    public float[] shipAcceleration =   {  10.0f,   8.0f,   5.0f,  15.0f,  20.0f};
+    public float[] shipRotation =       {  10.0f,   7.0f,  15.0f,  10.0f,   6.0f};
+    public float[] shipHealth =         {  80.0f,  90.0f, 150.0f, 100.0f,  50.0f};
+    public float[] shipDecceleration =  {   8.0f,   6.0f,   5.0f,  10.0f,   5.0f};
     public GameObject[] playerShipPrefabs;
     public GameObject[] AIShipPrefabs;
     public Transform[] AISpawnLocations;
@@ -30,6 +30,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	private bool go = false;
 	private float startTime;
+    private AI ai;
 
 	void Awake () {
 		allHoops = GameObject.FindGameObjectsWithTag("Ring");
@@ -64,16 +65,26 @@ public class GameManagerScript : MonoBehaviour {
 			int rnd = Random.Range(0, nums.Count);
 			int nAI = nums[rnd];
 			nums.RemoveAt(rnd);
-			GameObject AI = Instantiate(AIShipPrefabs[nAI]) as GameObject;
-			AI.transform.position = t.position;
-         
-            //assign values to AI ship based on which ship it is
-            AI.Max_velocity = shipMaxVelocity[rnd];
-            AI.acceleration = shipAcceleration[rnd];
-            AI.rotation = shipRotation[rnd];
-            AI.health = shipHealth[rnd];
-            AI.decceleration = shipDecceleration[rnd];
+			GameObject Ai = Instantiate(AIShipPrefabs[nAI]) as GameObject;
+			Ai.transform.position = t.position;
 
+            ai = Ai.GetComponent<AI>();
+            //assign values to AI ship based on which ship it is
+
+            ai.setMaxVelocity(shipMaxVelocity[nAI]);
+            ai.setAcceleration(shipAcceleration[nAI]);
+            ai.setRotation(shipRotation[nAI]);
+            ai.setHealth(shipHealth[nAI]);
+            ai.setDecceleration(shipDecceleration[nAI]);
+
+            /*
+            ai.Max_Velocity = shipMaxVelocity[nAI];
+            ai.acceleration = shipAcceleration[nAI];
+            ai.rotation = shipRotation[nAI];
+            ai.health = shipHealth[nAI];
+            ai.decceleration = shipDecceleration[nAI];
+            */
+            //implemented this when changed all AI values from private to public but decided to change back bc better coding practice/standard
 
         }
 
