@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AI : MonoBehaviour {
-    private float Max_Velocity = 150f;
-    private float velocity = 5.0f;
-    private float actingMaxVelocity = 0;
-    private float acceleration = 10f;
-    private int currHoop = -1;
-    private float rotation = 10.0f;
-    private float shipDistance;
-    private int shipSelection;
+    public float Max_Velocity = 150f;
+    public float velocity = 5.0f;
+    public float actingMaxVelocity = 0;
+    public float acceleration = 10f;
+    public int currHoop = -1;
+    public float rotation = 10.0f;
+    public float health = 100.0f;
+    public float decceleration = 5.0f;
+    public float shipDistance;
+    public int shipSelection;
 
     public bool raceHasStarted = false;
-    public float[] shipMaxVelocity   =  {150, 200, 200, 150, 100};
+   /* public float[] shipMaxVelocity   =  {150, 200, 200, 150, 100};
     public float[] shipAcceleration  =  { 10,   8,   5,  15,  20};
     public float[] shipRotation      =  { 10,   7,  15,  10,   6};
     public float[] shiphealth        =  { 80,  90, 150, 100,  50};
     public float[] shipDecceleration =  {  8,   6,   5,  10,   5};
-
+    */
     private GameManagerScript gm;
     private Transform hoop;
 
@@ -45,13 +47,6 @@ public class AI : MonoBehaviour {
 
 
     }
-    //add deccelertion value and health value to ship array
-    //add into GM script ai selction of ships based on player pref
-    //instead of slowin down by subtraction acceleration substitute it with decceleration values
-    //NEED:
-    //implement decceleration
-    
-
     void Update () {
     if(raceHasStarted){
       Vector3 delta = hoop.position - transform.position;
@@ -79,7 +74,8 @@ public class AI : MonoBehaviour {
           velocity = Max_Velocity;
         }
       }else{
-        velocity -= Time.deltaTime*acceleration;
+                //  velocity -= Time.deltaTime*acceleration;
+                velocity -= Time.deltaTime * decceleration;
         if(velocity<0f){
           velocity = 0f;
         }
@@ -97,5 +93,17 @@ public class AI : MonoBehaviour {
             currHoop = hoop.GetComponent<HoopScript>().hoopNum;
         }
         //Debug.Log(hoopNum);
+    }
+    public void getAcceleration()
+    {
+        return acceleration;
+    }
+    public void getHealth()
+    {
+        return health;
+    }
+    public void getMaxVelocity()
+    {
+        return Max_Velocity;
     }
 }

@@ -13,6 +13,11 @@ public class GameManagerScript : MonoBehaviour {
     public Material nextOut1;
     public Material nextOut2;
     public Material passed;
+    public float[] shipMaxVelocity =    { 150, 200, 200, 150, 100};
+    public float[] shipAcceleration =   {  10,   8,   5,  15,  20};
+    public float[] shipRotation =       {  10,   7,  15,  10,   6};
+    public float[] shipHealth =         {  80,  90, 150, 100,  50};
+    public float[] shipDecceleration =  {   8,   6,   5,  10,   5};
     public GameObject[] playerShipPrefabs;
     public GameObject[] AIShipPrefabs;
     public Transform[] AISpawnLocations;
@@ -61,7 +66,16 @@ public class GameManagerScript : MonoBehaviour {
 			nums.RemoveAt(rnd);
 			GameObject AI = Instantiate(AIShipPrefabs[nAI]) as GameObject;
 			AI.transform.position = t.position;
-		}
+         
+            //assign values to AI ship based on which ship it is
+            AI.Max_velocity = shipMaxVelocity[rnd];
+            AI.acceleration = shipAcceleration[rnd];
+            AI.rotation = shipRotation[rnd];
+            AI.health = shipHealth[rnd];
+            AI.decceleration = shipDecceleration[rnd];
+
+
+        }
 
 		foreach(GameObject g in allHoops){
 			HoopScript h = g.GetComponent<HoopScript>();
