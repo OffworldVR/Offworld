@@ -2,36 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using SimpleJSON;
+using System;
 
 
-[System.Serializable]
-public class AllPlayerData
-{
-    public string player1;
-    public string player2;
-
-
-    public float player1xPos;
-    public float player1yPos;
-    public float player1zPos;
-    public float player1xRot;
-    public float player1yRot;
-    public float player1zRot;
-
-    public float player2xPos;
-    public float player2yPos;
-    public float player2zPos;
-    public float player2xRot;
-    public float player2yRot;
-    public float player2zRot;
-
-
-}
 
 public class networkManager : MonoBehaviour {
 
-    public string playerID = "NULL";
-    public AllPlayerData allPlayerData;
+    public int playerID = 0;
+    public string allPlayerDataString;
 
     void Start () {
         
@@ -47,7 +26,7 @@ public class networkManager : MonoBehaviour {
 
     IEnumerator joinGame()
     {
-            UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/gameManager/addPlayer");
+            UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/serverManager/addPlayer");
             yield return www.SendWebRequest();
 
             if (www.isNetworkError || www.isHttpError)
@@ -57,9 +36,9 @@ public class networkManager : MonoBehaviour {
             else
             {
                 //Assign the response to playerID
-                playerID = www.downloadHandler.text;
+                int playerID = Int32.Parse(www.downloadHandler.text);
 
-            Debug.Log("Player " + www.downloadHandler.text + "has been added successfully");
+            Debug.Log("Player " + Int32.Parse(www.downloadHandler.text) + "has been added successfully");
             }
         
     }
@@ -69,7 +48,7 @@ public class networkManager : MonoBehaviour {
 
         while (true)
         {
-            UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/gameManager/refresh");
+            UnityWebRequest www = UnityWebRequest.Get("http://172.21.79.81/serverManager/refresh");
             yield return www.SendWebRequest();
 
             if (www.isNetworkError || www.isHttpError)
@@ -81,9 +60,11 @@ public class networkManager : MonoBehaviour {
                 // Show results as text
                 Debug.Log(www.downloadHandler.text);
 
+                allPlayerDataString = www.downloadHandler.text;
 
-                JsonUtility.FromJsonOverwrite(www.downloadHandler.text, allPlayerData);
-                Debug.Log("Player 2: " + allPlayerData.player2);
+                var parsedJSON = JSON.Parse(www.downloadHandler.text);
+
+                Debug.Log("Player " + parsedJSON["playerID"] +  " Data: " + parsedJSON);
            
 
             }

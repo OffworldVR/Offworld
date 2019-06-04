@@ -38,7 +38,7 @@ public class playerNetworkManager : MonoBehaviour {
 
 
             Debug.Log(form);
-            UnityWebRequest www = UnityWebRequest.Post("http://172.21.79.81/gameManager/update", form);
+            UnityWebRequest www = UnityWebRequest.Post("http://172.21.79.81/serverManager/update", form);
             yield return www.SendWebRequest();
 
             if (www.isNetworkError || www.isHttpError)
